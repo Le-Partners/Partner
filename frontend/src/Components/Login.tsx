@@ -6,6 +6,10 @@ import { auth, provider} from '../Firebase'
 import {Link, useNavigate} from 'react-router-dom';
 
 
+
+
+
+
 export default function Login(){
     var [email, setEmail] = useState('');
     var [password, setPass] = useState('');
