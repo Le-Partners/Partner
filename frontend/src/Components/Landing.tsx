@@ -3,9 +3,10 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import '../App.css'
 import axios from "axios"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Landing() {
+
   const [count, setCount] = useState(0)
 
   const fetchAPI = async () => {
@@ -14,12 +15,13 @@ function Landing() {
   }
 
   useEffect(() => {
-    fetchAPI()
-  },[])
+    fetchAPI();
+    document.documentElement.classList.add("dark");
+  }, [])
 
   return (
     <>
-      <div>
+      <div className="bg-gray-900 text-white">
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -40,6 +42,7 @@ function Landing() {
         Click on the Vite and React logos to learn more
       </p>
     </>
+
   )
 }
 
