@@ -1,4 +1,5 @@
 import React from 'react';
+import googleLogo from '../assets/web_light_sq_SI@2x.png';
 import {useState} from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, EmailAuthCredential  } from 'firebase/auth';
 import { auth, provider} from '../Firebase'
@@ -8,69 +9,6 @@ import {Link, useNavigate} from 'react-router-dom';
 
 
 
-const styles = {
-    container: {
-      // Flexbox to center the box and title in middle of page
-      display: 'flex',
-      flexDirection: 'column', // stacks the title and box vertical
-      justifyContent: 'center',  // then centers the content vertivcal
-      alignItems: 'center',  // centers the content horizontal
-      height: '100vh', 
-      backgroundColor: '#f0f0f0',  // light gray background page
-    },
-    header: {
-      textAlign: 'center',  //centers the text for the titles and text 
-      marginBottom: '20px',  // Add space between the title and the login box
-    },
-    title: {
-      fontSize: '3rem',  // Large font 
-      fontWeight: 'bold',  // bold
-      margin: 0, 
-    },
-    subtitle: {
-      fontSize: '1.25rem',  // small font size for text
-      color: '#555',  //dark gray text
-      marginTop: '8px',  //space between title and text
-      marginBottom: '0', 
-    },
-    box: {
-      padding: '20px',  // padding in box
-      backgroundColor: 'white',  //white background in box
-      borderRadius: '8px',  // Round corners
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow around the box 
-      textAlign: 'center',  //centers the text inside box
-      width: '300px',  // width of box
-    },
-    inputGroup: {
-      marginBottom: '15px',  // Space between the email and password boxes
-      textAlign: 'left',  // aligns text to left
-    },
-    input: {
-      width: '100%',  
-      padding: '8px',  // padding inside the input 
-      marginTop: '5px',  //small space between the labl and input boxes
-      borderRadius: '4px',  // rounde corners 
-      border: '1px solid #ccc',  // light border around the input 
-    },
-    button: {
-      padding: '10px 20px',  // padding inside the button
-      backgroundColor: 'blue',  // blue background
-      color: 'white',  // White text 
-      border: 'none', 
-      borderRadius: '4px',  //round corners 
-      cursor: 'pointer',  //shows pointer cursor when hovering button
-      width: '100%', 
-    },
-    signUpText: {
-      marginTop: '20px',  //space between the button and  not a partner? text
-    },
-    signUpLink: {
-      color: 'blue',  // Green color for the "Sign up" text
-      textDecoration: 'none', 
-      cursor: 'pointer',
-    },
-    
-  };
 
 export default function Login(){
     var [email, setEmail] = useState('');
@@ -127,57 +65,96 @@ export default function Login(){
         })
     }
 
-
-
-    
     return (
-    <div style={styles.container}>
-      {/* title above the login box*/}
-      <div style={styles.header}>
-        <h1 style={styles.title}>Partner</h1>  
-        <p style={styles.subtitle}>Login to find new partners!</p> 
-      </div>
+      
+          // flexible and aligns, stacks vertically, horizontally centers, vertically centers, sets height of screen, white bg
+        <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white text-black">
+            
+            {/* Title and subtext css for whole section */}
 
-      {/* box that holds the login info */}
-      <div style={styles.box}>
-        
-        
-        {/*boxes with email and password */}
-        <form onSubmit={UserSignIn}>
-          <div style={styles.inputGroup}>
-            <label>Email:</label>
-            <input
+                {/*  mb-6: adds space between bottom of subtext  */}
+            <div className="text-center mb-6">
 
-              onChange={(e) => setEmail(e.target.value)}  //updates the email based on the input 
-              style={styles.input}  // styles for input areas 
-              required  //makes the input required to submit
-            />
-          </div>
-          <div style={styles.inputGroup}>
-            <label>Password:</label>
-            <input
-              type="password"  // set text type  to password to make hidden characters
-              value={password}  // sets password to the the password variable
-              onChange={(e) => setPass(e.target.value)}  // updates the password based on the input 
-              style={styles.input} // styles for input areas 
-              required  //makes the input required to submit
-            />
-          </div>
-          <button type="submit" style={styles.button}>
-            Log In
-          </button>
-          </form>
+              {/* text-4xl: sets text 4 times reg size, 36px | font-bold: bold font   */}
+                <h1 className="text-4xl font-bold mb-2">Partner</h1>
+                
+                  {/* text-lg: large font = 18px | text-gray-700: sets text gray shade    */}
+                <p className="text-lg text-gray-700">Login to find new partners!</p>
+            </div>
 
-        {/* section for the sign-up text */}
-        <div style={styles.signUpText}>
-        <p>Not a partner?</p>
-        {/* button is clickable for signuplink but need to connect pages */}
-        <a style={styles.signUpLink}>Sign up</a> 
-    </div>
-    </div>
-    </div>
-    );
-     
+            {/* Login form */}
+
+              {/*  p-6: adds padding | rounded-lg: larger rounding effect | shadow-md: gives meduim shadow around box  */}
+            <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full max-w-md">
+
+                {/* handles user input   */}
+                <form onSubmit={UserSignIn}>
+
+                    <div className="mb-4 text-left">
+
+                        {/* email input  */}
+                        <label>Email:</label>
+
+                          {/* updates the state on change */}
+                        <input
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+
+                            // w-full: sets input as 100% of width | mt-1: adds a space of 4px above | border: adds border to input
+                            className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                        />
+                    </div>
+
+                    {/* password Input  */}
+                    <div className="mb-4 text-left">
+                        <label>Password:</label>
+                        {/*  creates hidden feature for password  */}
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPass(e.target.value)}
+                            className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                        />
+                    </div>
+
+                    {/*  Login button  */}
+                    <button
+                        type="submit"
+
+                        // hover:bg-blue = changes bg to darker blue when hovering over 
+                        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+                    >
+                        Log In
+                    </button>
+                </form>
+
+                 {/* Google Sign in button image */}
+                 <button
+                    onClick={GoogleSignIn}
+                    className="mt-4 border-none bg-transparent cursor-pointer focus:outline-none"
+                >
+                    <img
+                    //cconnected to image imported 
+                       src={googleLogo}
+                       alt="Google Sign-In"
+                       className="w-300 h-12"
+                    />
+                </button>
+
+
+                {/* Sign up link */}
+                <div className="mt-4 text-center">
+                    <p>Not a partner?</p>
+                    <Link to="/signup" className="text-blue-500">
+                        Sign up
+                    </Link>
+                </div>
+            </div>
+        </div>
+      
+  );
+    
+
     
 
 
