@@ -1,62 +1,57 @@
 import React from 'react';
 import googleLogo from '../assets/web_light_sq_SI@2x.png';
-import {useState} from 'react';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, EmailAuthCredential  } from 'firebase/auth';
-import { auth, provider} from '../Firebase'
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, EmailAuthCredential } from 'firebase/auth';
+import { auth, provider } from '../Firebase'
+import { Link, useNavigate } from 'react-router-dom';
 
-
-
-
-
-
-export default function Login(){
+export default function Login() {
     var [email, setEmail] = useState('');
     var [password, setPass] = useState('');
     const nav = useNavigate();
 
-    const GoogleSignIn = (event: React.MouseEvent<HTMLButtonElement>) =>{
+    const GoogleSignIn = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         //Open a pop up tab that allows users to sign in with user accounts
-        signInWithPopup(auth, provider).then((res) =>{
+        signInWithPopup(auth, provider).then((res) => {
             //Use the google account displayName as the account name.
             const user = res.user.displayName;
             const profile = res.user.photoURL;
             const uid = res.user.uid;
             //If statement exists because typescript is unsure if user is null or not
-            if(user && profile){
+            if (user && profile) {
                 //If the user does exist, set the users name in the storage to verify a user is logged in.
                 localStorage.setItem("user", user);
                 localStorage.setItem("photo", profile);
                 localStorage.setItem("uid", uid);
                 //Navigate to home page.
                 nav('/home');
-            }     
-        }).catch((error) =>{
+            }
+        }).catch((error) => {
             alert(error.message);
         })
     }
 
-    const UserSignIn = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const UserSignIn = (event: React.MouseEvent<HTMLFormElement>) => {
         event.preventDefault();
         //Check if user input fields correctly.
-        if(email === '' || password === ''){
+        if (email === '' || password === '') {
             return alert("Must Fill In All Fields");
         }
         //If successful, set the user as the email name. Will add option in future to update display name.
         //Otherwise, same function as above.
-        signInWithEmailAndPassword(auth, email, password).then((userCredentials) =>{
+        signInWithEmailAndPassword(auth, email, password).then((userCredentials) => {
             var user = auth.currentUser;
             var photo = user?.photoURL;
             const uid = user?.uid;
-            if(user && user.displayName && uid){
+            if (user && user.displayName && uid) {
                 localStorage.setItem("user", user.displayName);
                 localStorage.setItem('uid', uid);
             }
-            if(photo){
-            localStorage.setItem("photo", photo);
+            if (photo) {
+                localStorage.setItem("photo", photo);
             }
-            else{
+            else {
                 localStorage.setItem("user", email);
             }
             nav('/home');
@@ -66,25 +61,25 @@ export default function Login(){
     }
 
     return (
-      
-          // flexible and aligns, stacks vertically, horizontally centers, vertically centers, sets height of screen, white bg
+
+        // flexible and aligns, stacks vertically, horizontally centers, vertically centers, sets height of screen, white bg
         <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white text-black">
-            
+
             {/* Title and subtext css for whole section */}
 
-                {/*  mb-6: adds space between bottom of subtext  */}
+            {/*  mb-6: adds space between bottom of subtext  */}
             <div className="text-center mb-6">
 
-              {/* text-4xl: sets text 4 times reg size, 36px | font-bold: bold font   */}
+                {/* text-4xl: sets text 4 times reg size, 36px | font-bold: bold font   */}
                 <h1 className="text-4xl font-bold mb-2">Partner</h1>
-                
-                  {/* text-lg: large font = 18px | text-gray-700: sets text gray shade    */}
+
+                {/* text-lg: large font = 18px | text-gray-700: sets text gray shade    */}
                 <p className="text-lg text-gray-700">Login to find new partners!</p>
             </div>
 
             {/* Login form */}
 
-              {/*  p-6: adds padding | rounded-lg: larger rounding effect | shadow-md: gives meduim shadow around box  */}
+            {/*  p-6: adds padding | rounded-lg: larger rounding effect | shadow-md: gives meduim shadow around box  */}
             <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full max-w-md">
 
                 {/* handles user input   */}
@@ -95,7 +90,7 @@ export default function Login(){
                         {/* email input  */}
                         <label>Email:</label>
 
-                          {/* updates the state on change */}
+                        {/* updates the state on change */}
                         <input
                             type="email"
                             onChange={(e) => setEmail(e.target.value)}
@@ -128,16 +123,16 @@ export default function Login(){
                     </button>
                 </form>
 
-                 {/* Google Sign in button image */}
-                 <button
+                {/* Google Sign in button image */}
+                <button
                     onClick={GoogleSignIn}
                     className="mt-4 border-none bg-transparent cursor-pointer focus:outline-none"
                 >
                     <img
-                    //cconnected to image imported 
-                       src={googleLogo}
-                       alt="Google Sign-In"
-                       className="w-300 h-12"
+                        //cconnected to image imported 
+                        src={googleLogo}
+                        alt="Google Sign-In"
+                        className="w-300 h-12"
                     />
                 </button>
 
@@ -151,11 +146,6 @@ export default function Login(){
                 </div>
             </div>
         </div>
-      
-  );
-    
 
-    
-
-
+    );
 }
