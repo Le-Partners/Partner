@@ -5,7 +5,7 @@ import {Routes, Route} from 'react-router-dom'
 import Landing from './components/Landing'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import TopBar from './components/TopBar'
+import NavBar from './components/TopBar'
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
         <Route path = '/' element={<Landing/>}/>
         <Route path = '/Login' element={<Login/>}/>
         <Route path = '/Signup' element={<Signup/>}/>
-        <Route path = '/Profile' element={<TopBar/>}/>
+        <Route path = '/Profile' element={<NavBar/>}/>
       </Routes>
     </React.Fragment>
   )
