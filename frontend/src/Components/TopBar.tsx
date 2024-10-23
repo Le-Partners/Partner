@@ -12,33 +12,33 @@ import logo from "../assets/logo.png";
 // import { BellDotIcon, EnvelopeOpenIcon } from "lucide-react";
 // TODO ditto for messages icon
 
-export default function TopBar() {
+export default function NavBar() {
     return (
         <React.Fragment>
             <div className="absolute top-0 left-0 pt-8 pl-40 flex space-x-4">
                 <Button
                     variant="ghost"
-                    className="flex items-center justify-center w-24 h-24">
+                    className="flex items-center justify-center w-16 h-16">
                     <img
                         src={logo}
                         alt="Partner"
-                        className="object-contain w-full h-full" />
+                        className="object-contain w-auto h-full" />
                 </Button>
             </div>
             <div className="absolute top-0 right-0 pt-8 pr-8 flex space-x-4">
                 <Button
                     variant="outline"
-                    className="flex items-center justify-center w-12 h-12">
+                    className="flex items-center justify-center w-16 h-16">
                     <EnvelopeClosedIcon />
                 </Button>
                 <Button
                     variant="outline"
-                    className="flex items-center justify-center w-12 h-12">
+                    className="flex items-center justify-center w-16 h-16">
                     <BellIcon />
                 </Button>
                 <Button
                     variant="outline"
-                    className="flex items-center justify-center w-12 h-12 rounded-full p-0">
+                    className="flex items-center justify-center w-16 h-16 rounded-full p-0">
                     <Avatar className="w-full h-full">
                         <AvatarImage
                             src="https://github.com/shadcnawadad.pg"
@@ -54,4 +54,3 @@ export default function TopBar() {
         </React.Fragment>
     );
 }
-
