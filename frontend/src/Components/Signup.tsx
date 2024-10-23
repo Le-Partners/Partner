@@ -1,8 +1,13 @@
 import React from "react";
+import googleLogo from '../assets/web_light_sq_SU@2x.png';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { EmailAuthCredential, createUserWithEmailAndPassword } from "firebase/auth";
 import {auth, provider} from '../Firebase'
+import { register } from "module";
+
+
+
 
 export default function Signup(){
     var [email, setEmail] = useState('');
@@ -30,11 +35,91 @@ export default function Signup(){
         })
     }
 
-    return(
-        <React.Fragment>
-            <div>
-                Hi
-            </div>
-        </React.Fragment>
-    )
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-white text-black">
+          {/* Title and subtitle */}
+          <div className="text-center mb-6">
+              <h1 className="text-4xl font-bold mb-2">Partner</h1>
+              <p className="text-lg text-gray-700">Sign up to join the partner network!</p>
+          </div>
+
+          {/* Signup form */}
+          <div className="bg-gray-100 p-6 rounded-lg shadow-md w-80">
+              <form onSubmit={Register}>
+                  {/* Name input */}
+                  <div className="mb-4 text-left">
+                      <label>Name:</label>
+                      <input
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                          required
+                      />
+                  </div>
+
+                  {/* Email input */}
+                  <div className="mb-4 text-left">
+                      <label>Email:</label>
+                      <input
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                          required
+                      />
+                  </div>
+
+                  {/* Password input */}
+                  <div className="mb-4 text-left">
+                      <label>Password:</label>
+                      <input
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPass(e.target.value)}
+                          className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                          required
+                      />
+                  </div>
+
+                  {/* Verify password input */}
+                  <div className="mb-4 text-left">
+                      <label>Verify Password:</label>
+                      <input
+                          type="password"
+                          value={verify}
+                          onChange={(e) => setVerify(e.target.value)}
+                          className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                          required
+                      />
+                  </div>
+
+                  {/* Sign up button */}
+                  <button
+                      type="submit"
+                      className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+                  >
+                      Register
+                  </button>
+              </form>
+              
+               {/* Google Signup button image
+               <button
+                    onClick={GoogleSignUp}
+                    className="mt-4 border-none bg-transparent cursor-pointer"
+                >
+                    <img
+                        src={googleLogo}
+                        alt="Google Sign-Up"
+                        className="w-300 h-12" 
+                    />
+                </button> */}
+
+              {/* Login link */}
+              <div className="mt-4 text-center">
+                  <p>Already a partner?</p>
+                  <Link to="/login" className="text-blue-500">
+                      Log In
+                  </Link>
+              </div>
+          </div>
+      </div>
+  );
 }
