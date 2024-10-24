@@ -63,7 +63,7 @@ export default function Login() {
     return (
 
         // flexible and aligns, stacks vertically, horizontally centers, vertically centers, sets height of screen, white bg
-        <div className="min-h-screen w-full flex flex-col items-center justify-center bg-white text-black">
+        <div className="h-full w-full flex flex-col items-center justify-center">
 
             {/* Title and subtext css for whole section */}
 
@@ -74,13 +74,13 @@ export default function Login() {
                 <h1 className="text-4xl font-bold mb-2">Partner</h1>
 
                 {/* text-lg: large font = 18px | text-gray-700: sets text gray shade    */}
-                <p className="text-lg text-gray-700">Login to find new partners!</p>
+                <p className="text-lg text-gray-400">Login to find new partners!</p>
             </div>
 
             {/* Login form */}
 
             {/*  p-6: adds padding | rounded-lg: larger rounding effect | shadow-md: gives meduim shadow around box  */}
-            <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full max-w-md">
+            <div className="p-6 rounded-lg shadow-md w-full max-w-md">
 
                 {/* handles user input   */}
                 <form onSubmit={UserSignIn}>
@@ -96,7 +96,7 @@ export default function Login() {
                             onChange={(e) => setEmail(e.target.value)}
 
                             // w-full: sets input as 100% of width | mt-1: adds a space of 4px above | border: adds border to input
-                            className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                            className="w-full mt-1 p-2 border rounded-lg border-blue-300"
                         />
                     </div>
 
@@ -108,7 +108,7 @@ export default function Login() {
                             type="password"
                             value={password}
                             onChange={(e) => setPass(e.target.value)}
-                            className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                            className="w-full mt-1 p-2 border border-blue-300"
                         />
                     </div>
 
