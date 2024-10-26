@@ -1,0 +1,15 @@
+.profile-section {
+    /* mt-10*/
+    margin-top: 2.5rem;
+    text-align: left;
+}
+
+.profile-section h2 {
+    /* text-3xl */
+    font-size: 1.875rem;
+}
+
+.profile-section p {
+    font-size: 1.25rem;
+    text-align: justify;
+}

@@ -1,0 +1,169 @@
+/* NavBar.css */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    /* Adjust padding as needed */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-search {
+    flex-grow: 1;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+@media (max-width: 40rem) {
+    .navbar-search {
+        display: none;
+    }
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-button, .avatar-button {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-button {
+    border-radius: 50%;
+    padding: 0;
+}
+
+.navbar-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensures the image stays within circular bounds */
+    border-radius: 50%; /* Makes the avatar itself round */
+}
+
+.navbar-avatar-image {
+    width: 100%;
+    height: auto; /* Keeps the aspect ratio to avoid squishing */
+    border-radius: 50%; /* Ensures the image itself is also round */
+    object-fit: cover;
+}
+
+.navbar-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* equivalent to text-xl */
+    color: white;
+    background-color: #4b5563; /* bg-gray-600 */
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
