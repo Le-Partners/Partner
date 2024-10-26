@@ -1,12 +1,10 @@
 import React from "react";
-import reactLogo from '../assets/react.svg';
-import viteLogo from '/vite.svg';
 import '../App.css';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
 
 import logo from "../assets/logo.png";
@@ -18,7 +16,7 @@ export default function NavBar() {
     return (
         <React.Fragment>
             {/* Parent div */}
-            <div className="absolute top-0 left-0 w-full pt-8 pl-8 pr-8 flex items-center justify-between space-x-4">
+            <div className="fixed top-0 left-0 w-full pt-8 pl-8 pr-8 flex items-center justify-between space-x-4">
                 {/* Left section with logo and menu button */}
                 <div className="flex items-center justify-start space-x-4">
                     {/* Side tray button */}
