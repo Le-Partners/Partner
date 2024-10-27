@@ -25,26 +25,22 @@ dbMongo.once('open', function() {
 
 
 const userSchema = new mongoose.Schema ({
-    username:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    birthday:{
-        type: String,
-        required: true,
-    },
-    gender:{
-        type:String,
-        required: true
-    },
-    bio:{
-        type : String,
-        required: false
-    }
-
-
-    
+  username:{
+    type: String,
+    required: true,
+  },
+  birthday:{
+    type: String,
+    required: true,
+  },
+  gender:{
+    type:String,
+    required: true
+  },
+  bio:{
+    type : String,
+    required: false
+  }
 });
 const User = mongoose.model('User', userSchema);
 
@@ -125,29 +121,42 @@ const Notification = mongoose.model('Notification', notificationSchema);
 
 
 app.post('/users', async function (req, res) {
-    const user = new User({
-        username: req.body.username,
-        birthday: req.body.birthday,
-        gender: req.body.gender,
-        bio: req.body.bio
-    })
-    try {
-        console.log("Trying")
-        await user.save();
-        res.send(user);
-        console.log("User made")
-    }
-    catch(error) {
-        console.log(error)
-    }
+  const usr = new User({
+    username: req.body.username,
+    birthday: req.body.birthday,
+    gender: req.body.gender,
+    bio: req.body.bio
+  })
+  try {
+    console.log("Trying")
+    await usr.save();
+    res.send(usr);
+    console.log("User made")
+  }catch(error) {
+    console.log(error)
+  }
 })
+
+app.get('/users', async function (req, res) {
+  try {
+    console.log("Getting")
+    const usrs = await User.find()
+    res.send(usrs)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+// app.put('/users/:uid', async function (req, res) {
+
+// })
 
 
 
 
 app.get("/api", (req, res) => {
-    console.log("Got it")
-    res.json({"dummy": ["testing", "the", "backend"]})
+  console.log("Got it")
+  res.json({"dummy": ["testing", "the", "backend"]})
 })
 
 app.listen(8080, () => {
