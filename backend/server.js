@@ -152,6 +152,34 @@ app.get('/users', async function (req, res) {
 // })
 
 
+app.post('/posts', async function (req, res){
+    const post = new Post({
+        username: req.body.username,
+        message: req.body.message,
+        date_time: Date(),
+    })
+    try{
+        console.log("Trying")
+        await post.save();
+        res.send(post);
+        console.log("Post made")
+    }
+    catch(error){
+        console.log(error)
+    }
+})
+
+   
+
+app.get('/posts', async function (req, res) {
+    try{
+    const posts = await Post.find()
+    res.send(posts)
+    }
+    catch (error) {
+        console.log(error)
+    }
+})
 
 
 app.get("/api", (req, res) => {
