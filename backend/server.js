@@ -23,6 +23,7 @@ dbMongo.once('open', function() {
   console.log('Connected to MongoDB');
 });
 
+
 const userSchema = new mongoose.Schema ({
     username:{
         type: String,
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema ({
         unique: true
     },
     birthday:{
-        type: Date,
+        type: String,
         required: true,
     },
     gender:{
@@ -39,11 +40,14 @@ const userSchema = new mongoose.Schema ({
     },
     bio:{
         type : String,
-        required : true
+        required: false
     }
+
 
     
 });
+const User = mongoose.model('User', userSchema);
+
 
 const postSchema = new mongoose.Schema({
 
@@ -61,6 +65,8 @@ const postSchema = new mongoose.Schema({
         required: false
     }
 });
+const Post = mongoose.model('Post', postSchema);
+
 
 const partnerSchema = new mongoose.Schema({
     username: {
@@ -74,6 +80,8 @@ const partnerSchema = new mongoose.Schema({
     }
 
 });
+const Partner = mongoose.model('Partner', partnerSchema);
+
 
 const messageSchema = new mongoose.Schema({
     sender_username:{
@@ -94,6 +102,8 @@ const messageSchema = new mongoose.Schema({
         default: false
     }
 });
+const Message = mongoose.model('Message', messageSchema);
+
 
 const notificationSchema = new mongoose.Schema({
     username:{
@@ -110,13 +120,33 @@ const notificationSchema = new mongoose.Schema({
     }
 
 });
+const Notification = mongoose.model('Notification', notificationSchema);
 
 
+
+app.post('/users', async function (req, res) {
+    const user = new User({
+        username: req.body.username,
+        birthday: req.body.birthday,
+        gender: req.body.gender,
+        bio: req.body.bio
+    })
+    try {
+        console.log("Trying")
+        await user.save();
+        res.send(user);
+        console.log("User made")
+    }
+    catch(error) {
+        console.log(error)
+    }
+})
 
 
 
 
 app.get("/api", (req, res) => {
+    console.log("Got it")
     res.json({"dummy": ["testing", "the", "backend"]})
 })
 
