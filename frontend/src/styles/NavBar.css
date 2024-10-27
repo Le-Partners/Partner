@@ -95,11 +95,12 @@ video {
     left: 0;
     width: 100%;
     padding: 2rem;
-    /* Adjust padding as needed */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    z-index: 1000;
+    background-color: #383838;
 }
 
 .navbar-left {
@@ -145,14 +146,14 @@ video {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Ensures the image stays within circular bounds */
-    border-radius: 50%; /* Makes the avatar itself round */
+    overflow: hidden;
+    border-radius: 50%;
 }
 
 .navbar-avatar-image {
     width: 100%;
-    height: auto; /* Keeps the aspect ratio to avoid squishing */
-    border-radius: 50%; /* Ensures the image itself is also round */
+    height: auto;
+    border-radius: 50%;
     object-fit: cover;
 }
 
@@ -160,9 +161,9 @@ video {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem; /* equivalent to text-xl */
+    font-size: 1.25rem;
     color: white;
-    background-color: #4b5563; /* bg-gray-600 */
+    background-color: #4b5563;
     border-radius: 50%;
     width: 100%;
     height: 100%;

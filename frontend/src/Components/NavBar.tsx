@@ -17,25 +17,19 @@ import logo from "../assets/logo.png";
 export default function NavBar() {
     return (
         <React.Fragment>
-            {/* Parent div */}
             <ul className="navbar">
-                {/* Left section with logo and menu button */}
                 <div className="navbar-left">
-                    {/* Side tray button */}
-                    <Button variant="ghost" className="navbar-button">
+                    <Button variant="outline" className="navbar-button">
                         <HamburgerMenuIcon />
                     </Button>
-                    {/* Home Button */}
-                    <Button variant="ghost" className="navbar-button">
+                    <Button variant="outline" className="navbar-button">
                         <img src={logo} alt="Partner" className="object-contain w-auto h-full" />
                     </Button>
                 </div>
-                {/* Search box */}
                 <div className="navbar-search">
                     <Input type="search" placeholder="Find a Partner" />
                 </div>
 
-                {/* Account action buttons */}
                 <div className="navbar-actions">
                     <Button variant="outline" className="navbar-button">
                         <EnvelopeClosedIcon />
@@ -44,12 +38,10 @@ export default function NavBar() {
                         <BellIcon />
                     </Button>
                     <Button
-                        variant="outline"
+                        variant="ghost"
                         className="avatar-button">
                         <Avatar className="navbar-avatar">
-                            <AvatarImage
-                                src="https://github.com/shadcnawadad.pg"
-                                className="navbar-avatar-image" />
+                            <AvatarImage className="navbar-avatar-image" />
                             <AvatarFallback className="navbar-avatar-fallback">
                                 PT
                             </AvatarFallback>

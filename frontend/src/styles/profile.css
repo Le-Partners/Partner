@@ -1,15 +1,150 @@
-.profile-section {
-    /* mt-10*/
-    margin-top: 2.5rem;
+.profile-body {
+    text-align: justify;
+
+    & h1.name {
+        font-size: 4rem;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    & h2.username {
+        font-size: 2.25rem;
+        text-align: justify;
+        margin-top: 0.75rem;
+        font-family: "Roboto Mono", monospace;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    & h3 {
+        margin-top: 0.5rem;
+        font-size: 2.25rem;
+        text-align: left;
+    }
+
+    & hr {
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        width: 100%;
+        border-top: 1px solid #d1d5db;
+    }
+
+    & p {
+        margin-top: 0.5rem;
+        font-size: 1.25rem;
+    }
+
+}
+
+.contact-info {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+.contact-info span {
+    white-space: nowrap;
+}
+
+
+.button-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    aspect-ratio: 3/1;
+    gap: 2rem;
+}
+
+.button {
+    max-width: 80%;
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0rem;
+    gap: 2rem;
+    font-size: 2rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    /* Darker background on hover */
+}
+
+.button-logo {
+    display:flex;
+    width: auto;
+    height: 100%;
+    padding: 0.5rem;
+    object-fit: contain;
+}
+
+.two-column-layout {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5.0rem;
+    margin-bottom: 2.0rem;
+}
+
+.column {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.left-column {
+    flex: 1;
+    align-items: left;
     text-align: left;
 }
 
-.profile-section h2 {
-    /* text-3xl */
-    font-size: 1.875rem;
+.main-column {
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.profile-section p {
-    font-size: 1.25rem;
-    text-align: justify;
+@media (max-width: 768px) {
+    .left-column {
+        display: none;
+    }
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.fallback {
+    width: 10rem;
+    height: 10rem;
+    font-size: 4rem;
+    color: white;
+    background-color: #4b5563;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
