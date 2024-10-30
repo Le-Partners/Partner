@@ -1,17 +1,23 @@
-import { useState, useEffect } from 'react'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '/vite.svg'
-import '../App.css'
-import axios from "axios"
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import React from "react";
+import '../App.css';
+import axios from "axios";
+import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 
 function Landing() {
-
   const [count, setCount] = useState(0)
 
   const fetchAPI = async () => {
     const res = await axios.get("http://localhost:8080/api")
     console.log(res.data.dummy)
+  }
+
+  const fetchUsers = async () => {
+    const res = await axios.get("http://localhost:8080/users");
+    console.log(res.data);
+    setCount((count) => res.data.length);
+
   }
 
   useEffect(() => {
@@ -20,28 +26,17 @@ function Landing() {
   }, [])
 
   return (
-    <>
-      <div className="bg-gray-900 text-white">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <React.Fragment>
+      <div className="flex w-full h-full p-2 flex-row align-middle items-center">
+        <Button onClick={() => fetchUsers()} variant="ghost" className="w-28 h-28 flex items-center justify-center">
+          Click me!
+        </Button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Number of users: {count}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+    </React.Fragment>
   )
 }
 
