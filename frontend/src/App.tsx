@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 
-import Landing from './components/Landing'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import NavBar from './components/NavBar'
-import Profile from './components/Profile'
+import Landing from './Components/Landing'
+import Login from './Components/Login'
+import Signup from './Components/Signup'
+import NavBar from './Components/NavBar'
+import Profile from './Components/Profile'
 import { relative } from 'path';
 
 

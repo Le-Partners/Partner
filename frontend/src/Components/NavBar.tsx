@@ -4,10 +4,10 @@ import viteLogo from '/vite.svg';
 import '../App.css';
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
-import { Input } from "@/components/ui/input";
+import { Input } from "./ui/input";
 import '../styles/NavBar.css'
 import logo from "../assets/logo.png";
 // TODO replace BellIcon with BellDotIcon when notifications/are pending
