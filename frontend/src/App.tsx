@@ -2,6 +2,8 @@ import React from 'react'
 import './App.css'
 import {Routes, Route} from 'react-router-dom'
 
+
+import Layout from './components/layout'
 import Landing from './components/Landing'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -14,6 +16,14 @@ function App() {
     <React.Fragment>
       <Routes>
         <Route path = '/' element={<Landing/>}/>
+        <Route
+          path="/home"
+          element={
+            <Layout>
+              <NavBar />
+            </Layout>
+          }
+        />
         <Route path = '/Login' element={<Login/>}/>
         <Route path = '/Signup' element={<Signup/>}/>
         <Route path = '/Profile' element={<NavBar/>}/>
