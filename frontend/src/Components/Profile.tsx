@@ -5,8 +5,8 @@ import igLogo from "../assets/instagram-white.png";
 import xLogo from "../assets/X-white.png";
 import ytLogo from "../assets/youtube-white.png";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 
 export default function Profile() {
     return (
