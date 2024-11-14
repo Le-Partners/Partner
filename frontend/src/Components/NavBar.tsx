@@ -1,23 +1,19 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import '../App.css';
-import axios from "axios";
-import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
-import '../styles/NavBar.css'
+import '../styles/NavBar.css';
 import logo from "../assets/logo.png";
-// TODO replace BellIcon with BellDotIcon when notifications/are pending
-// import { BellDotIcon, EnvelopeOpenIcon } from "lucide-react";
-// TODO ditto for messages icon
-// TODO Adapt to screen size
-export default function NavBar() {
+
+// Export NavBar as a forwardRef component
+const NavBar = forwardRef<HTMLUListElement>((props, ref) => {
     return (
         <React.Fragment>
-            <ul className="navbar">
+            <ul className="navbar" ref={ref}>
                 <div className="navbar-left">
                     <Button variant="outline" className="navbar-button">
                         <HamburgerMenuIcon />
@@ -37,9 +33,7 @@ export default function NavBar() {
                     <Button variant="outline" className="navbar-button">
                         <BellIcon />
                     </Button>
-                    <Button
-                        variant="ghost"
-                        className="avatar-button">
+                    <Button variant="ghost" className="avatar-button">
                         <Avatar className="navbar-avatar">
                             <AvatarImage className="navbar-avatar-image" />
                             <AvatarFallback className="navbar-avatar-fallback">
@@ -51,4 +45,9 @@ export default function NavBar() {
             </ul>
         </React.Fragment>
     );
-}
+});
+
+// Setting displayName for debugging in React DevTools
+NavBar.displayName = "NavBar";
+
+export default NavBar;

@@ -1,19 +1,25 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/Menu"
-import NavBar from './TopBar';
+import NavBar from './NavBar';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <SidebarProvider>
-      {/* Include the sidebar */}
-      <AppSidebar />
-      
-      
-      {/* Main content with SidebarTrigger for toggling */}
-      <main>
-      <SidebarTrigger className=" top-4 -right-8 z-10 bg-gray-800 text-white rounded-full p-2 shadow-md" />
-        {children}
-      </main>
-    </SidebarProvider>
-  )
+    return (
+        <SidebarProvider>
+          <div className="flex">
+            {/* Sidebar on the left */}
+            <div className="relative">
+              <AppSidebar />
+    
+              {/* Sidebar Trigger positioned next to the sidebar */}
+              
+            
+            </div>
+    
+            {/* Main content area */}
+            <main className="flex-grow p-4">
+              {children}
+            </main>
+          </div>
+        </SidebarProvider>
+      );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import googleLogo from '../assets/web_light_sq_SU@2x.png';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { EmailAuthCredential, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth,GoogleAuthProvider,EmailAuthCredential, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
 import {auth, provider} from '../Firebase'
 import { register } from "module";
 
@@ -14,6 +14,29 @@ export default function Signup(){
     var [password, setPass] = useState('');
     var [verify, setVerify] = useState('');
     const nav = useNavigate()
+
+    const GoogleSignUp = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      //Open a pop up tab that allows users to sign in with user accounts
+      signInWithPopup(auth, provider).then((res) => {
+          //Use the google account displayName as the account name.
+          const user = res.user.displayName;
+          const profile = res.user.photoURL;
+          const uid = res.user.uid;
+          //If statement exists because typescript is unsure if user is null or not
+          if (user && profile) {
+              //If the user does exist, set the users name in the storage to verify a user is logged in.
+              localStorage.setItem("user", user);
+              localStorage.setItem("photo", profile);
+              localStorage.setItem("uid", uid);
+              //Navigate to home page.
+              nav('/home');
+          }
+      }).catch((error) => {
+          alert(error.message);
+      })
+  }
+
 
     const Register = (event: React.MouseEvent<HTMLButtonElement>) =>{
         event.preventDefault();
@@ -36,22 +59,22 @@ export default function Signup(){
     }
 
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-white text-black">
+      <div className="flex flex-col items-center justify-center h-screen ">
           {/* Title and subtitle */}
           <div className="text-center mb-6">
               <h1 className="text-4xl font-bold mb-2">Partner</h1>
-              <p className="text-lg text-gray-700">Sign up to join the partner network!</p>
+              <p className="text-lg text-gray-400">Sign up to join the partner network!</p>
           </div>
 
           {/* Signup form */}
-          <div className="bg-gray-100 p-6 rounded-lg shadow-md w-80">
+          <div className=" p-6 rounded-lg shadow-md w-80">
               <form onSubmit={Register}>
                   {/* Name input */}
                   <div className="mb-4 text-left">
                       <label>Name:</label>
                       <input
                           onChange={(e) => setName(e.target.value)}
-                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg "
                           required
                       />
                   </div>
@@ -62,7 +85,7 @@ export default function Signup(){
                       <input
                           type="email"
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black"
+                          className="w-full mt-1 p-2 border border-gray-300 rounded-lg "
                           required
                       />
                   </div>
@@ -74,7 +97,7 @@ export default function Signup(){
                           type="password"
                           value={password}
                           onChange={(e) => setPass(e.target.value)}
-                          className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                          className="w-full mt-1 p-2 border border-blue-300  rounded-lg"
                           required
                       />
                   </div>
@@ -86,7 +109,7 @@ export default function Signup(){
                           type="password"
                           value={verify}
                           onChange={(e) => setVerify(e.target.value)}
-                          className="w-full mt-1 p-2 border border-blue-300 bg-white rounded-lg"
+                          className="w-full mt-1 p-2 border border-blue-300  rounded-lg"
                           required
                       />
                   </div>
@@ -100,17 +123,17 @@ export default function Signup(){
                   </button>
               </form>
               
-               {/* Google Signup button image
+               {/* Google Signup button image*/}
                <button
                     onClick={GoogleSignUp}
-                    className="mt-4 border-none bg-transparent cursor-pointer"
+                    className="mt-4 border-none bg-transparent cursor-pointer focus:outline-none"
                 >
                     <img
                         src={googleLogo}
                         alt="Google Sign-Up"
                         className="w-300 h-12" 
                     />
-                </button> */}
+                </button> 
 
               {/* Login link */}
               <div className="mt-4 text-center">
