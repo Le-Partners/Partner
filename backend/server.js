@@ -109,7 +109,7 @@ const Message = mongoose.model('Message', messageSchema);
 const notificationSchema = new mongoose.Schema({
     username:{
         type: String,
-        required: true
+        required: false
     },
     notification_message:{
         type: String,
@@ -117,7 +117,8 @@ const notificationSchema = new mongoose.Schema({
     },
     is_read:{
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     },
     uid:{
       type : String,
@@ -156,7 +157,6 @@ app.get('/users', async function (req, res) {
   }
 })
 
-
 app.get('/users/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
@@ -173,10 +173,38 @@ app.get('/users/:uid', async function (req, res) {
   }
 });
 
+app.get('/users/:username', async function (req, res) {
+  try {
+    const username = req.params.username;
+
+    const usr = await User.findOne({ username });
+
+    if (!usr) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(usr);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // app.put('/users/:uid', async function (req, res) {
 
 // })
+
+app.delete('/users/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
+
+    User.deleteOne({uid})
+
+    res.status(200).json(usr);
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 app.post('/posts', async function (req, res){
@@ -197,8 +225,6 @@ app.post('/posts', async function (req, res){
     }
 })
 
-
-
 app.get('/posts', async function (req, res) {
     try{
     const posts = await Post.find()
@@ -208,6 +234,40 @@ app.get('/posts', async function (req, res) {
         console.log(error)
     }
 })
+
+
+app.get('/posts/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
+
+    const posts = await Post.findOne({ uid });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User posts not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.get('/posts/:username', async function (req, res) {
+  try {
+    const username = req.params.username;
+
+    const posts = await Post.findOne({ username });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 
 app.get("/api", (req, res) => {
