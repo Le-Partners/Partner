@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import GetUserInfo from './components/getUserInfo';
 
 import Layout from './components/layout';
 import Update from './components/Update';
@@ -33,7 +34,7 @@ function App() {
   return (
     <React.Fragment>
       <div ref={navbarRef}>
-        <NavBar />
+        {/* <NavBar /> */}
       </div>
       <div style={{ marginTop: `${navbarHeight + 75}px` }}>
         <Routes>
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
+          <Route path="/getUserInfo" element={<GetUserInfo />} />
           <Route
             path="/Update"
             element={

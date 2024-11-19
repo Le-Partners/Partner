@@ -30,7 +30,7 @@ export default function Signup(){
               localStorage.setItem("photo", profile);
               localStorage.setItem("uid", uid);
               //Navigate to home page.
-              nav('/home');
+              nav('/Profile');
           }
       }).catch((error) => {
           alert(error.message);
@@ -51,7 +51,7 @@ export default function Signup(){
         //Registers a user with their email and password.
         createUserWithEmailAndPassword(auth, email, password).then((res) =>{
             //Navigates them to login page 
-            nav('/Login');
+            nav('/Profile');
         }).catch((error) =>{
             //If there was an error, more likely then not user input email incorrectly.
             alert(error.message);
