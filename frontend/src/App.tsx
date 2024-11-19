@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import GetUserInfo from './Components/getUserInfo';
 
+import Layout from './Components/layout';
+import Update from './Components/Update';
+import FindPartner from './Components/findPartner';
+import Feed from './Components/feed';
 import Landing from './Components/Landing'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
@@ -29,14 +34,42 @@ function App() {
   return (
     <React.Fragment>
       <div ref={navbarRef}>
-        <NavBar />
+        {/* <NavBar /> */}
       </div>
-      <div style={{ marginTop: `${navbarHeight+75}px` }}>
+      <div style={{ marginTop: `${navbarHeight + 75}px` }}>
         <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Signup' element={<Signup />} />
-          <Route path='/Profile' element={<Profile />} />
+
+          <Route
+            path="/home"
+            element={
+              <Layout navbarOffset={navbarHeight + 75}>
+              <Feed /> {/* Add the Feed component here */}
+              </Layout>
+            }
+          />
+          <Route path="/" element={<Landing />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/getUserInfo" element={<GetUserInfo />} />
+          <Route
+            path="/Update"
+            element={
+              <Layout navbarOffset={navbarHeight + 75}>
+                <Update />
+              </Layout>
+            }
+          />
+
+          <Route
+            path="/FindPartner"
+            element={
+              <Layout navbarOffset={navbarHeight + 75}>
+                <FindPartner />
+              </Layout>
+            }
+          />
+
+          <Route path="/Profile" element={<Layout navbarOffset={navbarHeight + 75}><Profile /></Layout>} />
         </Routes>
       </div>
     </React.Fragment>
