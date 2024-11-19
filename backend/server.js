@@ -45,6 +45,15 @@ const userSchema = new mongoose.Schema ({
     type : String,
     required : true
   },
+  experience:{
+    type : String,
+    required : true
+  },
+  pfp:{
+    type : String,
+    required : true,
+    default : 'https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?rs=1&pid=ImgDetMain'
+  }
 });
 const User = mongoose.model('User', userSchema);
 
@@ -65,20 +74,44 @@ const postSchema = new mongoose.Schema({
     uid:{
       type : String,
       required : true
+    },
+    like:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    fire:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    star:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    content:{
+      type : String,
+      required : true,
     }
+
 });
 const Post = mongoose.model('Post', postSchema);
 
 
 const partnerSchema = new mongoose.Schema({
     username: {
-        type:String,
-        required: true
-
+      type:String,
+      required: true
     },
     partners: {
-        type: [String],
-        required: true
+      type: [String],
+      required: true,
+      default : [""]
+    },
+    uid : {
+      type : String,
+      required : true
     }
 });
 const Partner = mongoose.model('Partner', partnerSchema);
@@ -136,6 +169,7 @@ app.post('/users', async function (req, res) {
     gender: req.body.gender,
     bio: req.body.bio,
     uid: req.body.uid,
+    experience: req.body.experience
   })
   try {
     console.log("Trying")
@@ -213,6 +247,7 @@ app.post('/posts', async function (req, res){
         message: req.body.message,
         date_time: Date(),
         uid: req.body.uid,
+        content: req.body.content,
     })
     try{
         console.log("Trying")
@@ -268,9 +303,43 @@ app.get('/posts/:username', async function (req, res) {
   }
 });
 
+app.post('/partners', async function (req, res) {
+  const partner = new Partner({
+    username : req.body.username,
+    uid : req.body.uid,
+  })
+  try {
+    await partner.save()
+    res.send(partner)
+  }catch(error) {
+    console.log(error)
+  }
+})
+
+app.post('/partners/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid
+
+    const partners = await Partner.findOne({uid})
+    res.status(200).json(partners);
+  }catch(error){
+    console.log(error)
+  }
+})
+
+app.post('/partners/:username', async function (req, res) {
+  try {
+    const username = req.params.uid
+
+    const partners = await Partner.findOne({username})
+    res.status(200).json(partners);
+  }catch(error){
+    console.log(error)
+  }
+})
 
 
-app.get("/api", (req, res) => {
+app.get('/api', (req, res) => {
   console.log("Got it")
   res.json({"dummy": ["testing", "the", "backend"]})
 })
