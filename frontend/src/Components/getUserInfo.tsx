@@ -5,6 +5,7 @@ export default function GetUserInfo() {
   const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
+  const [level, setLevel] = useState("");
   const [bio, setBio] = useState("");
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ export default function GetUserInfo() {
       username,
       birthday,
       gender,
+      level,
       bio,
     };
 
@@ -70,6 +72,23 @@ export default function GetUserInfo() {
             <option value="female">Female</option>
             <option value="nonbinary">Non-Binary</option>
             <option value="preferNotToSay">Prefer Not to Say</option>
+          </select>
+        </div>
+
+         {/* Workout level */}
+         <div className="mb-4">
+          <label className="block text-white-700">Workout Experience:</label>
+          <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg"
+            required
+          >
+            <option value="">Select Workout level</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+            <option value="expert">Expert</option>
           </select>
         </div>
 
