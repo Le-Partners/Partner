@@ -2,11 +2,14 @@ import React, { forwardRef } from "react";
 import reactLogo from '../assets/react.svg';
 import viteLogo from '/vite.svg';
 import '../App.css';
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
-import { Input } from "@/components/ui/input";
 import '../styles/NavBar.css';
+import axios from "axios";
+import { Link } from 'react-router-dom';
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../Components/ui/avatar";
+import { HamburgerMenuIcon, BellIcon, EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import { Input } from "./ui/input";
+import '../styles/NavBar.css'
 import logo from "../assets/logo.png";
 
 // Export NavBar as a forwardRef component

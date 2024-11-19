@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import GetUserInfo from './components/getUserInfo';
+import GetUserInfo from './Components/getUserInfo';
 
-import Layout from './components/layout';
-import Update from './components/Update';
-import FindPartner from './components/findPartner';
-import Feed from './components/feed';
-import Landing from './components/Landing'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import NavBar from './components/NavBar'
-import Profile from './components/Profile'
+import Layout from './Components/layout';
+import Update from './Components/Update';
+import FindPartner from './Components/findPartner';
+import Feed from './Components/feed';
+import Landing from './Components/Landing'
+import Login from './Components/Login'
+import Signup from './Components/Signup'
+import NavBar from './Components/NavBar'
+import Profile from './Components/Profile'
 import { relative } from 'path';
 
 
@@ -38,7 +38,7 @@ function App() {
       </div>
       <div style={{ marginTop: `${navbarHeight + 75}px` }}>
         <Routes>
-        
+
           <Route
             path="/home"
             element={
@@ -68,7 +68,7 @@ function App() {
               </Layout>
             }
           />
-          
+
           <Route path="/Profile" element={<Layout navbarOffset={navbarHeight + 75}><Profile /></Layout>} />
         </Routes>
       </div>
