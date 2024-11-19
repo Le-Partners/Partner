@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { UserPlus,Send,Handshake } from 'lucide-react';
 
 export default function FindPartner() {
   return (
@@ -19,49 +20,89 @@ export default function FindPartner() {
             loop: true,
           }}
         >
+          
           <CarouselContent className="h-full">
             {/* Carousel Items  */}
-            <CarouselItem className="pl-4 w-full h-[500px] items-center ">
-              <div className="bg-red-100 w-full h-full p-8 rounded-lg text- shadow-md flex flex-col justify-center">
-                <h2 className="text-2xl font-bold">Partner 1</h2>
-                <p className="text-lg mt-2">Beginner</p>
-              </div>
+            <CarouselItem className="relative pl-4 w-full h-[500px] bg-red-200 items-center flex justify-center">
+            <img
+              src="shirt3.jpg"
+              alt="John Doe"
+              className="w-full h-full object-cover rounded-lg"
+            />
+            <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">John Doe, 25</p>
+            </div>
+            <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">Beginner</p>
+            </div>
             </CarouselItem>
-            <CarouselItem className="pl-4 w-full h-[500px] items-center ">
-              <div className="bg-green-100 w-full h-full p-8 rounded-lg text-center shadow-md flex flex-col justify-center">
-                <h2 className="text-2xl font-bold">Partner 2</h2>
-                <p className="text-lg mt-2">Intermediate.</p>
-              </div>
+
+            <CarouselItem className="relative pl-4 w-full h-[500px] bg-red-200 items-center flex justify-center">
+            <img
+              src="/shirt2.jpg"
+              alt="John Doe"
+              className="w-full h-full object-cover rounded-lg"
+            />
+            <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">Harvey Specter, 25</p>
+            </div>
+            <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">Intermediate</p>
+            </div>
             </CarouselItem>
-            <CarouselItem className="pl-4 w-full h-[500px] items-center ">
-              <div className="bg-yellow-100 w-full h-full p-8 rounded-lg text-center shadow-md flex flex-col justify-center">
-                <h2 className="text-2xl font-bold">Partner 3</h2>
-                <p className="text-lg mt-2">Advance.</p>
-              </div>
+
+            <CarouselItem className="relative pl-4 w-full h-[500px] bg-red-200 items-center flex justify-center">
+            <img
+              src="/shirt1.jpeg"
+              alt="John Doe"
+              className="w-full h-full object-cover rounded-lg"
+            />
+            <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">Pearson Hardman, 28</p>
+            </div>
+            <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
+              <p className="text-lg font-bold">Advanced</p>
+            </div>
             </CarouselItem>
-          </CarouselContent>
+        </CarouselContent>
 
           {/* Navigation buttons */}
           <CarouselPrevious className=" absolute top-1/2 -translate-y-1/2 left" />
           <CarouselNext className=" absolute top-1/2 -translate-y-1/2 right" />
         </Carousel>
+
+
+
+
+      {/* Bio Section */}
+      <div className=" shadow-md w-full">
+          
+          <p className="text-white-700">
+            I’m looking for a workout partner I’m looking for a workout partnerI’m looking for a workout partnerI’m 
+            looking for a workout partnerI’m looking for a workout partner
+          </p>
+        </div>
+          
+        {/* Buttons Below Carousel */}
+      <div className="flex justify-around w-full mt-2">
+
+        <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
+          
+        <span>Send Message</span>
+          
+        </button>
+        <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
+        <span>Partner Up</span>
+        </button>
+        <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
+          Connect
+        </button>
       </div>
 
-      {/* Buttons Below Carousel */}
-      <div className="align-items ">
-        <button>
-          Send Message  
-        </button>
+      
+    </div>
 
-        <button>
-         Partner Up 
-        </button>
-
-        <button>
-        Connect 
-        </button>
-      </div>
-
+      
     </div>
   );
 }
