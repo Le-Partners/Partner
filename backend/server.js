@@ -207,7 +207,7 @@ app.get('/users/:uid', async function (req, res) {
   }
 });
 
-app.get('/users/:username', async function (req, res) {
+app.get('/users/username/:username', async function (req, res) {
   try {
     const username = req.params.username;
 
@@ -223,17 +223,39 @@ app.get('/users/:username', async function (req, res) {
   }
 });
 
-// app.put('/users/:uid', async function (req, res) {
 
-// })
+app.put('/users/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
+
+    const updatedUser = await User.findOneAndUpdate(
+      { uid }, 
+      { $set: req.body }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 app.delete('/users/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
 
-    User.deleteOne({uid})
-
-    res.status(200).json(usr);
+    const result = await User.deleteOne({uid})
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(uid);
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ message: 'Server error' });
@@ -270,12 +292,11 @@ app.get('/posts', async function (req, res) {
     }
 })
 
-
 app.get('/posts/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
 
-    const posts = await Post.findOne({ uid });
+    const posts = await Post.find({ uid });
 
     if (!posts) {
       return res.status(404).json({ message: 'User posts not found' });
@@ -287,11 +308,11 @@ app.get('/posts/:uid', async function (req, res) {
   }
 });
 
-app.get('/posts/:username', async function (req, res) {
+app.get('/posts/username/:username', async function (req, res) {
   try {
     const username = req.params.username;
 
-    const posts = await Post.findOne({ username });
+    const posts = await Post.find({ username });
 
     if (!posts) {
       return res.status(404).json({ message: 'User not found' });
@@ -302,6 +323,31 @@ app.get('/posts/:username', async function (req, res) {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+app.put('/posts/post/:_id', async function (req, res)
+{
+  try {
+    const postId = req.params._id; 
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId, 
+      { $inc: req.body }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.status(200).json(updatedPost); 
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+})
+
+
 
 app.post('/partners', async function (req, res) {
   const partner = new Partner({
@@ -327,9 +373,9 @@ app.post('/partners/:uid', async function (req, res) {
   }
 })
 
-app.post('/partners/:username', async function (req, res) {
+app.post('/partners/username/:username', async function (req, res) {
   try {
-    const username = req.params.uid
+    const username = req.params.username
 
     const partners = await Partner.findOne({username})
     res.status(200).json(partners);
