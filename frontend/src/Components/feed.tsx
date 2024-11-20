@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "./ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 
 
@@ -53,9 +53,9 @@ const descriptions = {
               </CardContent>
             </Card>
 
-            
+
              {/* Like, fire, Superstar buttons slide effect */}
-        
+
             <div className="flex mt-2 space-x-1 items-start w-full"> {/* Reduced spacing between icons */}
               <div className="group flex items-center transition-all duration-300 min-w-[2rem] hover:min-w-[5rem] overflow-hidden">
                 <ThumbsUp size={20} className="text-white group-hover:text-blue-500 transition-colors duration-300" />
@@ -89,7 +89,7 @@ const descriptions = {
           </div>
         ))}
       </div>
-    
+
   );
 };
 
