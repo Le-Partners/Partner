@@ -308,6 +308,7 @@ app.get('/posts/:uid', async function (req, res) {
   }
 });
 
+
 app.get('/posts/username/:username', async function (req, res) {
   try {
     const username = req.params.username;
@@ -323,6 +324,24 @@ app.get('/posts/username/:username', async function (req, res) {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+app.get('/posts/post/:_id', async function (req, res) {
+  try {
+    const _id = req.params._id;
+
+    const posts = await Post.find({ _id });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User posts not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 
 app.put('/posts/post/:_id', async function (req, res)
