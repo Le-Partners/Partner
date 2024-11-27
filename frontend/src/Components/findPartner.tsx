@@ -9,6 +9,10 @@ import {
 import { UserPlus,Send,Handshake } from 'lucide-react';
 
 export default function FindPartner() {
+
+
+
+
   return (
     <div className="p-8 flex flex-col items-center h-screen">
       <h1 className="text-2xl font-bold mb-4">Find Your Workout Partner</h1>
@@ -25,12 +29,12 @@ export default function FindPartner() {
             {/* Carousel Items  */}
             <CarouselItem className="relative pl-4 w-full h-[500px] bg-red-200 items-center flex justify-center">
             <img
-              src="shirt3.jpg"
+              src="rizzler.png"
               alt="John Doe"
               className="w-full h-full object-cover rounded-lg"
             />
             <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
-              <p className="text-lg font-bold">John Doe, 25</p>
+              <p className="text-lg font-bold">The Rizzler, 25</p>
             </div>
             <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded-lg">
               <p className="text-lg font-bold">Beginner</p>
@@ -92,7 +96,7 @@ export default function FindPartner() {
 
         </button>
         <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
-        <span>Partner Up</span>
+        <span>Partner Request</span>
         </button>
         <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
           Connect

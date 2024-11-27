@@ -3,6 +3,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import GetUserInfo from './Components/getUserInfo';
 import Protected from './Components/Protected'
+import Tracker from './Components/tracker';
 
 import Layout from './Components/layout';
 import Update from './Components/Update';
@@ -48,6 +49,14 @@ function App() {
                 <Feed /> {/* Add the Feed component here */}
                 </Layout>
               </Protected>
+            }
+          />
+          <Route
+            path="/Tracker"
+            element={
+              <Layout navbarOffset={navbarHeight + 75}>
+                <Tracker />
+              </Layout>
             }
           />
           <Route path="/" element={<Landing />} />
