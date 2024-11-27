@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
-} from "@/components/ui/sidebar"
+} from "@/Components/ui/sidebar"
 
 // Define the menu items with title, URL, and icon
 const items = [
@@ -26,7 +26,7 @@ const items = [
   
   {
     title: "Tracker",
-    url: "#",        
+    url: "/Tracker",        
     icon: ActivityIcon,  
   },
 

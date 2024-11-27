@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import GetUserInfo from './Components/getUserInfo';
+import Tracker from './Components/tracker';
 
 import Layout from './Components/layout';
 import Update from './Components/Update';
@@ -44,6 +45,14 @@ function App() {
             element={
               <Layout navbarOffset={navbarHeight + 75}>
               <Feed /> {/* Add the Feed component here */}
+              </Layout>
+            }
+          />
+          <Route
+            path="/Tracker"
+            element={
+              <Layout navbarOffset={navbarHeight + 75}>
+                <Tracker />
               </Layout>
             }
           />
