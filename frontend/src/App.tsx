@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import GetUserInfo from './Components/getUserInfo';
+import Protected from './Components/Protected'
 import Tracker from './Components/tracker';
 
 import Layout from './Components/layout';
@@ -43,9 +44,11 @@ function App() {
           <Route
             path="/home"
             element={
-              <Layout navbarOffset={navbarHeight + 75}>
-              <Feed /> {/* Add the Feed component here */}
-              </Layout>
+              <Protected>
+                <Layout navbarOffset={navbarHeight + 75}>
+                <Feed /> {/* Add the Feed component here */}
+                </Layout>
+              </Protected>
             }
           />
           <Route
@@ -59,26 +62,30 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/getUserInfo" element={<GetUserInfo />} />
+          <Route path="/getUserInfo" element={<Protected><GetUserInfo /></Protected>} />
           <Route
             path="/Update"
             element={
-              <Layout navbarOffset={navbarHeight + 75}>
-                <Update />
-              </Layout>
+              <Protected>
+                <Layout navbarOffset={navbarHeight + 75}>
+                  <Update />
+                </Layout>
+              </Protected>
             }
           />
 
           <Route
             path="/FindPartner"
             element={
-              <Layout navbarOffset={navbarHeight + 75}>
-                <FindPartner />
-              </Layout>
+              <Protected>
+                <Layout navbarOffset={navbarHeight + 75}>
+                  <FindPartner />
+                </Layout>
+              </Protected>
             }
           />
 
-          <Route path="/Profile" element={<Layout navbarOffset={navbarHeight + 75}><Profile /></Layout>} />
+          <Route path="/Profile" element={<Protected><Layout navbarOffset={navbarHeight + 75}><Profile /></Layout></Protected>} />
         </Routes>
       </div>
     </React.Fragment>

@@ -40,14 +40,25 @@ const userSchema = new mongoose.Schema ({
   bio:{
     type : String,
     required: false
+  },
+  uid:{
+    type : String,
+    required : true
+  },
+  experience:{
+    type : String,
+    required : true
+  },
+  pfp:{
+    type : String,
+    required : true,
+    default : 'https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?rs=1&pid=ImgDetMain'
   }
 });
 const User = mongoose.model('User', userSchema);
 
 
 const postSchema = new mongoose.Schema({
-
-
     username:{
         type:String,
         required: true,
@@ -59,22 +70,49 @@ const postSchema = new mongoose.Schema({
     date_time:{
         type:Date,
         required: false
+    },
+    uid:{
+      type : String,
+      required : true
+    },
+    like:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    fire:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    star:{
+      type: Number,
+      required : true,
+      default : 0
+    },
+    content:{
+      type : String,
+      required : true,
     }
+
 });
 const Post = mongoose.model('Post', postSchema);
 
 
 const partnerSchema = new mongoose.Schema({
     username: {
-        type:String,
-        required: true
-        
+      type:String,
+      required: true
     },
     partners: {
-        type: [String],
-        required: true
+      type: [String],
+      required: true,
+      default : [""]
+    },
+    uid : {
+      type : String,
+      required : true
     }
-
 });
 const Partner = mongoose.model('Partner', partnerSchema);
 
@@ -87,7 +125,7 @@ const messageSchema = new mongoose.Schema({
     reciever_username:{
         type:String,
         required: true
-    }, 
+    },
     text_message:{
         type: String,
         required: true
@@ -104,7 +142,7 @@ const Message = mongoose.model('Message', messageSchema);
 const notificationSchema = new mongoose.Schema({
     username:{
         type: String,
-        required: true
+        required: false
     },
     notification_message:{
         type: String,
@@ -112,9 +150,13 @@ const notificationSchema = new mongoose.Schema({
     },
     is_read:{
         type: Boolean,
-        required: true
+        required: true,
+        default: false
+    },
+    uid:{
+      type : String,
+      required : true
     }
-
 });
 const Notification = mongoose.model('Notification', notificationSchema);
 
@@ -125,7 +167,9 @@ app.post('/users', async function (req, res) {
     username: req.body.username,
     birthday: req.body.birthday,
     gender: req.body.gender,
-    bio: req.body.bio
+    bio: req.body.bio,
+    uid: req.body.uid,
+    experience: req.body.experience
   })
   try {
     console.log("Trying")
@@ -147,9 +191,76 @@ app.get('/users', async function (req, res) {
   }
 })
 
-// app.put('/users/:uid', async function (req, res) {
+app.get('/users/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
 
-// })
+    const usr = await User.findOne({ uid });
+
+    if (!usr) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(usr);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.get('/users/username/:username', async function (req, res) {
+  try {
+    const username = req.params.username;
+
+    const usr = await User.findOne({ username });
+
+    if (!usr) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(usr);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+app.put('/users/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
+
+    const updatedUser = await User.findOneAndUpdate(
+      { uid }, 
+      { $set: req.body }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+app.delete('/users/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
+
+    const result = await User.deleteOne({uid})
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(uid);
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 app.post('/posts', async function (req, res){
@@ -157,6 +268,8 @@ app.post('/posts', async function (req, res){
         username: req.body.username,
         message: req.body.message,
         date_time: Date(),
+        uid: req.body.uid,
+        content: req.body.content,
     })
     try{
         console.log("Trying")
@@ -169,8 +282,6 @@ app.post('/posts', async function (req, res){
     }
 })
 
-   
-
 app.get('/posts', async function (req, res) {
     try{
     const posts = await Post.find()
@@ -181,8 +292,119 @@ app.get('/posts', async function (req, res) {
     }
 })
 
+app.get('/posts/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid;
 
-app.get("/api", (req, res) => {
+    const posts = await Post.find({ uid });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User posts not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+app.get('/posts/username/:username', async function (req, res) {
+  try {
+    const username = req.params.username;
+
+    const posts = await Post.find({ username });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+app.get('/posts/post/:_id', async function (req, res) {
+  try {
+    const _id = req.params._id;
+
+    const posts = await Post.find({ _id });
+
+    if (!posts) {
+      return res.status(404).json({ message: 'User posts not found' });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+app.put('/posts/post/:_id', async function (req, res)
+{
+  try {
+    const postId = req.params._id; 
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId, 
+      { $inc: req.body }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.status(200).json(updatedPost); 
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+})
+
+
+
+app.post('/partners', async function (req, res) {
+  const partner = new Partner({
+    username : req.body.username,
+    uid : req.body.uid,
+  })
+  try {
+    await partner.save()
+    res.send(partner)
+  }catch(error) {
+    console.log(error)
+  }
+})
+
+app.post('/partners/:uid', async function (req, res) {
+  try {
+    const uid = req.params.uid
+
+    const partners = await Partner.findOne({uid})
+    res.status(200).json(partners);
+  }catch(error){
+    console.log(error)
+  }
+})
+
+app.post('/partners/username/:username', async function (req, res) {
+  try {
+    const username = req.params.username
+
+    const partners = await Partner.findOne({username})
+    res.status(200).json(partners);
+  }catch(error){
+    console.log(error)
+  }
+})
+
+
+app.get('/api', (req, res) => {
   console.log("Got it")
   res.json({"dummy": ["testing", "the", "backend"]})
 })

@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
-} from "@/Components/ui/sidebar"
+} from "./ui/sidebar"
 
 // Define the menu items with title, URL, and icon
 const items = [
@@ -23,33 +23,33 @@ const items = [
     url: "/home",        // Home  specific route
     icon: Home,      // Icon component for the Home item
   },
-  
+
   {
     title: "Tracker",
-    url: "/Tracker",        
-    icon: ActivityIcon,  
+    url: "#",
+    icon: ActivityIcon,
   },
 
   {
     title: "Find Partner",
-    url: "/FindPartner",        
-    icon: Search,    
+    url: "/FindPartner",
+    icon: Search,
   },
   {
     title: "Update",
-    url: "/Update",        
-    icon: CirclePlusIcon,    
+    url: "/Update",
+    icon: CirclePlusIcon,
   },
 
   {
     title: "Inbox",
-    url: "#",        
-    icon: Inbox,    
+    url: "#",
+    icon: Inbox,
   },
   {
     title: "Settings",
-    url: "#",        
-    icon: Settings, 
+    url: "#",
+    icon: Settings,
   },
 ]
 
@@ -61,7 +61,7 @@ export function AppSidebar() {
     <Sidebar>
       {/* Optional header for the sidebar */}
       <SidebarHeader />
-      
+
       {/* Main content of the sidebar */}
       <SidebarContent>
         {/* Sidebar group to organize items under a label */}
@@ -86,7 +86,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      
+
       {/* Optional footer for the sidebar */}
       <SidebarFooter />
     </Sidebar>

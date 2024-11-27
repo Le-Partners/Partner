@@ -30,7 +30,7 @@ export default function Signup(){
               localStorage.setItem("photo", profile);
               localStorage.setItem("uid", uid);
               //Navigate to home page.
-              nav('/Profile');
+              nav('/getUserInfo');
           }
       }).catch((error) => {
           alert(error.message);
@@ -50,7 +50,7 @@ export default function Signup(){
         }
         //Registers a user with their email and password.
         createUserWithEmailAndPassword(auth, email, password).then((res) =>{
-            //Navigates them to login page 
+            //Navigates them to login page
             nav('/Profile');
         }).catch((error) =>{
             //If there was an error, more likely then not user input email incorrectly.
@@ -122,7 +122,7 @@ export default function Signup(){
                       Register
                   </button>
               </form>
-              
+
                {/* Google Signup button image*/}
                <button
                     onClick={GoogleSignUp}
@@ -131,9 +131,9 @@ export default function Signup(){
                     <img
                         src={googleLogo}
                         alt="Google Sign-Up"
-                        className="w-300 h-12" 
+                        className="w-300 h-12"
                     />
-                </button> 
+                </button>
 
               {/* Login link */}
               <div className="mt-4 text-center">

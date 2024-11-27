@@ -5,26 +5,26 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/Components/ui/carousel";
+} from "./ui/carousel";
 import { UserPlus,Send,Handshake } from 'lucide-react';
 
 export default function FindPartner() {
 
 
 
-  
+
   return (
     <div className="p-8 flex flex-col items-center h-screen">
       <h1 className="text-2xl font-bold mb-4">Find Your Workout Partner</h1>
 
-      <div className="w-full max-w-lg h-full"> 
+      <div className="w-full max-w-lg h-full">
         <Carousel
           opts={{
             align: "start",
             loop: true,
           }}
         >
-          
+
           <CarouselContent className="h-full">
             {/* Carousel Items  */}
             <CarouselItem className="relative pl-4 w-full h-[500px] bg-red-200 items-center flex justify-center">
@@ -80,20 +80,20 @@ export default function FindPartner() {
 
       {/* Bio Section */}
       <div className=" shadow-md w-full">
-          
+
           <p className="text-white-700">
-            I’m looking for a workout partner I’m looking for a workout partnerI’m looking for a workout partnerI’m 
+            I’m looking for a workout partner I’m looking for a workout partnerI’m looking for a workout partnerI’m
             looking for a workout partnerI’m looking for a workout partner
           </p>
         </div>
-          
+
         {/* Buttons Below Carousel */}
       <div className="flex justify-around w-full mt-2">
 
         <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
-          
+
         <span>Send Message</span>
-          
+
         </button>
         <button className="px-4 py-2 bg-gray-700 text-white shadow hover:bg-blue-600">
         <span>Partner Request</span>
@@ -103,10 +103,10 @@ export default function FindPartner() {
         </button>
       </div>
 
-      
+
     </div>
 
-      
+
     </div>
   );
 }
