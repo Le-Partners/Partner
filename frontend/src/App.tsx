@@ -40,7 +40,7 @@ function App() {
           <Route
             path="/Tracker"
             element={
-              <Layout navbarOffset={navbarHeight + 75}>
+              <Layout>
                 <Tracker />
               </Layout>
             }
