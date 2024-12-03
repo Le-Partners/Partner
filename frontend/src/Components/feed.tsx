@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-
+import axios from 'axios'
 
 
 const Feed = () => {
@@ -17,11 +17,21 @@ const Feed = () => {
   // will add more once we get dummy data
   const [cards] = useState(Array.from({ length: 5 }));
 
-const descriptions = {
+  const descriptions = {
     Like: "Show appreciation for this post.",
     Fire: "This post is on fire! Give it a flame.",
     Superstar: "Make this post a superstar!",
   };
+
+  const fetchPosts = async () => {
+    const res =  await axios.get("http://localhost:8080/posts")
+    console.log(res.data)
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, [])
+
   // TODO:  add links to usernames that profiles get mapped to as well as caption
   return (
     <div className="feed-container flex flex-col items-center p-8">
