@@ -1,30 +1,93 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
+import axios from 'axios';
+
+
+const urlEndpoint = 'https://ik.imagekit.io/83imtx286'
+const publicKey = 'public_bGhKDN0oFvrNYpH4gM9gB+FWG9E=';
+const authenticator =  async () => {
+    try {
+        const response = await fetch('http://localhost:8080/auth');
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Request failed with status ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+        const { signature, expire, token } = data;
+        return { signature, expire, token };
+    } catch (error) {
+        throw new Error(`Authentication request failed: ${error.message}`);
+    }
+};
+
+var contentUrl
+
+
+
+
+
 
 function Update() {
+  const [content, setContent] = useState('')
   const [caption, setCaption] = useState('');
   const [media, setMedia] = useState(null);
-  const [mediaType, setMediaType] = useState(''); // trracks media type 
+  const [mediaType, setMediaType] = useState(''); // trracks media type
   const navigate = useNavigate();
-
-  const handleMediaChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileType = file.type.startsWith("video") ? "video" : "image";
-      setMediaType(fileType);
-
-      // allows a preview URL for media
-      setMedia(URL.createObjectURL(file)); 
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you add code to save the new post data.
-    // like send it to db.
-    
+
+    submitPost();
+
+    console.log("Submitted post?")
+
     //redirects to the Feed page
     navigate('/home');
+  };
+
+  const submitPost = async () => {
+    const postEndPoint = "http://localhost:8080/posts"
+
+    const postData = {
+      username: localStorage.getItem("user"),
+      message: caption,
+      uid: localStorage.getItem("uid"),
+      content: content,
+    }
+
+    try {
+      const res = await fetch(postEndPoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status} - ${res.statusText}`);
+      }
+
+      const responseData = await res.json(); // Parse JSON response
+      console.log('Post created:', responseData);
+      return responseData;
+
+    } catch (error) {
+      console.error("Error posting post:", error);
+      throw error
+    }
+  };
+
+  const onError = err => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = res => {
+    console.log("Success", res);
+    setContent(res.url);
   };
 
   return (
@@ -36,18 +99,18 @@ function Update() {
 
       {/* handles media upload and the caption */}
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
-        
+
         {/* Media upload */}
         <div>
-          <label className="block text-lg font-medium text-white-700 mb-2">Upload an Image or Video</label>
-          <input
-            type="file"
-
-            // Allows both images and videos
-            accept="image/*,video/*" 
-            onChange={handleMediaChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
+          {/* <label className="block text-lg font-medium text-white-700 mb-2">Upload an Image or Video</label> */}
+          <IKContext urlEndpoint={urlEndpoint} publicKey={publicKey} authenticator={authenticator}>
+            <p>Upload an image</p>
+            <IKUpload
+              fileName="test-upload.png"
+              onError={onError}
+              onSuccess={onSuccess}
+            />
+          </IKContext>
         </div>
 
         {/* preview */}
