@@ -23,7 +23,6 @@ function Update() {
     // Here you add code to save the new post data.
     // like send it to db.
     
-    
     //redirects to the Feed page
     navigate('/home');
   };
