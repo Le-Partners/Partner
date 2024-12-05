@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -7,11 +7,23 @@ import {
   CarouselPrevious,
 } from "./ui/carousel";
 import { UserPlus,Send,Handshake } from 'lucide-react';
+import axios from 'axios';
+
+
+
+
 
 export default function FindPartner() {
 
 
+  const fetchPosts = async () => {
+    const res =  await axios.get("http://localhost:8080/users")
+    console.log(res.data)
+  }
 
+  useEffect(() => {
+    fetchPosts();
+  }, [])
 
   return (
     <div className="p-8 flex flex-col items-center h-screen">
