@@ -22,9 +22,6 @@ function App() {
   const navbarRef = useRef<HTMLDivElement>(null);
   return (
     <React.Fragment>
-      <div ref={navbarRef}>
-        {<NavBar />}
-      </div>
       <div>
         <Routes>
           <Route
@@ -32,6 +29,9 @@ function App() {
             element={
               <Protected>
                 <Layout>
+                  <div ref={navbarRef}>
+                    {<NavBar />}
+                  </div>
                   <Feed /> {/* Add the Feed component here */}
                 </Layout>
               </Protected>
@@ -41,21 +41,34 @@ function App() {
             path="/Tracker"
             element={
               <Layout>
+                <div ref={navbarRef}>
+                  {<NavBar />}
+                </div>
                 <Tracker />
               </Layout>
             }
           />
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/getUserInfo" element={<Protected><GetUserInfo /></Protected>} />
           {/* TODO change the setting page to route there */}
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings" element={
+            <Layout>
+              <div ref={navbarRef}>
+                {<NavBar />}
+              </div>
+              <Settings />
+            </Layout>
+          } />
           <Route
             path="/Update"
             element={
               <Protected>
                 <Layout>
+                  <div ref={navbarRef}>
+                    {<NavBar />}
+                  </div>
                   <Update />
                 </Layout>
               </Protected>
@@ -67,13 +80,24 @@ function App() {
             element={
               <Protected>
                 <Layout>
+                  <div ref={navbarRef}>
+                    {<NavBar />}
+                  </div>
                   <FindPartner />
                 </Layout>
               </Protected>
             }
           />
 
-          <Route path="/Profile" element={<Protected><Layout><Profile /></Layout></Protected>} />
+          <Route path="/Profile" element={
+            <Protected>
+              <Layout>
+                <div ref={navbarRef}>
+                  {<NavBar />}
+                </div>
+                <Profile />
+              </Layout>
+            </Protected>} />
         </Routes>
       </div>
     </React.Fragment>

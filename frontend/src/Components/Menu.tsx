@@ -1,6 +1,9 @@
+import { auth } from "../Firebase";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 // Import icons for the menu items
-import { ActivityIcon, CirclePlusIcon, Home, Inbox, Search, Settings } from "lucide-react"
+import { ActivityIcon, CirclePlusIcon, Home, Inbox, Search, Settings } from "lucide-react";
 
 // Import sidebar components from the UI library
 import {
@@ -14,70 +17,54 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
-} from "./ui/sidebar"
+} from "./ui/sidebar";
 
 // Define the menu items with title, URL, and icon
 const items = [
-  {
-    title: "My Feed",
-    url: "/home",        // Home  specific route
-    icon: Home,      // Icon component for the Home item
-  },
+  { title: "My Feed", url: "/home", icon: Home },
+  { title: "Tracker", url: "/Tracker", icon: ActivityIcon },
+  { title: "Find Partner", url: "/FindPartner", icon: Search },
+  { title: "Update", url: "/Update", icon: CirclePlusIcon },
+  { title: "Inbox", url: "#", icon: Inbox },
+  { title: "Settings", url: "/Settings", icon: Settings },
+];
 
-  {
-    title: "Tracker",
-    url: "#",
-    icon: ActivityIcon,
-  },
-
-  {
-    title: "Find Partner",
-    url: "/FindPartner",
-    icon: Search,
-  },
-  {
-    title: "Update",
-    url: "/Update",
-    icon: CirclePlusIcon,
-  },
-
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Settings",
-    url: "/Settings",
-    icon: Settings,
-  },
-]
-
-//TODO  get menu button linked to topbar button to toggle open andl close
-
-// Define the AppSidebar component to render the sidebar with the menu
+// Define the AppSidebar component
 export function AppSidebar() {
+  const navigate = useNavigate();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // Handle logout using Firebase auth
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true); // Set logging out state
+      await auth.signOut(); // Sign out using Firebase auth
+    } catch (error) {
+      console.error("Error during sign-out:", error);
+    }
+  };
+
+  // Trigger navigation to the login page after logout
+  useEffect(() => {
+    if (isLoggingOut) {
+      navigate("/login");
+    }
+  }, [isLoggingOut, navigate]);
+
   return (
     <Sidebar>
-      {/* Optional header for the sidebar */}
       <SidebarHeader />
-
-      {/* Main content of the sidebar */}
       <SidebarContent>
-        {/* Sidebar group to organize items under a label */}
         <SidebarGroup>
-          <SidebarGroupLabel>Partner</SidebarGroupLabel>  {/* Label for the group of menu items */}
+          <SidebarGroupLabel>Partner</SidebarGroupLabel>
           <SidebarGroupContent style={{ paddingTop: `110px` }}>
-            {/* Sidebar menu to hold the list of menu items */}
             <SidebarMenu>
-              {/* Map through the items array to render each menu item */}
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="py-3">
                   <SidebarMenuButton asChild>
-                    {/* Each menu item links to the specified URL and displays an icon and title */}
                     <a href={item.url}>
-                      <item.icon />        {/* Display the icon for the menu item */}
-                      <span className="text-2xl ml-2">{item.title}</span> {/* Display the title of the menu item */}
+                      <item.icon />
+                      <span className="text-2xl ml-2">{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -86,9 +73,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      {/* Optional footer for the sidebar */}
-      <SidebarFooter />
+      <SidebarFooter>
+        <SidebarMenuItem>
+          <SidebarMenuButton onClick={handleLogout} className="py-3">
+            <span className="text-2xl ml-2">Logout</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
