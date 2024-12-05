@@ -17,9 +17,10 @@ const Feed = () => {
     }
   };
 
-  // reaction count
+  // Handle single reaction per post
   const handleReaction = (index, type) => {
     const updatedPosts = [...posts];
+
     if (type === "like") {
       if (updatedPosts[index].liked) {
         updatedPosts[index].like -= 1;
@@ -27,6 +28,16 @@ const Feed = () => {
       } else {
         updatedPosts[index].like += 1;
         updatedPosts[index].liked = true;
+
+        // Reset other reactions
+        if (updatedPosts[index].fired) {
+          updatedPosts[index].fire -= 1;
+          updatedPosts[index].fired = false;
+        }
+        if (updatedPosts[index].starred) {
+          updatedPosts[index].star -= 1;
+          updatedPosts[index].starred = false;
+        }
       }
     } else if (type === "fire") {
       if (updatedPosts[index].fired) {
@@ -35,6 +46,16 @@ const Feed = () => {
       } else {
         updatedPosts[index].fire += 1;
         updatedPosts[index].fired = true;
+
+        // Reset other reactions
+        if (updatedPosts[index].liked) {
+          updatedPosts[index].like -= 1;
+          updatedPosts[index].liked = false;
+        }
+        if (updatedPosts[index].starred) {
+          updatedPosts[index].star -= 1;
+          updatedPosts[index].starred = false;
+        }
       }
     } else if (type === "star") {
       if (updatedPosts[index].starred) {
@@ -43,8 +64,19 @@ const Feed = () => {
       } else {
         updatedPosts[index].star += 1;
         updatedPosts[index].starred = true;
+
+        // Reset other reactions
+        if (updatedPosts[index].liked) {
+          updatedPosts[index].like -= 1;
+          updatedPosts[index].liked = false;
+        }
+        if (updatedPosts[index].fired) {
+          updatedPosts[index].fire -= 1;
+          updatedPosts[index].fired = false;
+        }
       }
     }
+
     setPosts(updatedPosts);
   };
 
@@ -54,34 +86,40 @@ const Feed = () => {
 
   return (
     <div className="feed-container flex flex-col items-center p-8">
-      {posts.map((post, index) => (
-        <div key={index} className="w-full md:w-96 mb-8 space-y-4 -translate-x-20 transform">
-          {/* Profile Icon and Username */}
-          <div className="flex items-center space-x-4 mb-4">
-            <Avatar className="w-12 h-12">
-              <AvatarImage src="path_to_profile_image" alt={`${post.username}'s Profile Picture`} />
-              <AvatarFallback>{post.username.charAt(0).toUpperCase()}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm text-gray-500">@{post.username}</p>
-            </div>
-          </div>
+  {posts.map((post, index) => (
+    <div key={index} className="w-full md:w-96 mb-8 space-y-4 -translate-x-20 transform">
+      {/* Profile Icon and Username */}
+      <div className="flex items-center space-x-4 mb-4">
+        <Avatar className="w-12 h-12 bg-gray-700 border-none shadow-none rounded-full">
+          <AvatarImage
+            src="path_to_profile_image"
+            alt={`${post.username}'s Profile Picture`}
+            className="object-cover rounded-full"
+          />
+          <AvatarFallback className="bg-gray-700 text-white">
+            {post.username.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-lg text-gray-300">@{post.username}</p>
+        </div>
+      </div>
 
           {/* Card with Full-Size Post Content */}
-          <Card className="w-full h-auto bg-black">
-            <CardContent className="p-0">
+          <Card className="w-full h-auto bg-transparent border-none shadow-none">
+            <CardContent className="p-0 bg-black">
               <div className="h-72 w-full">
                 <img
                   src={post.content} // Post content as the image URL
                   alt="Post Content"
-                  className="h-full w-full object-cover rounded-md"
+                  className="h-full w-full object-cover rounded-lg"
                 />
               </div>
             </CardContent>
           </Card>
 
           {/* Caption Section */}
-          <div className="mt-2 text-sm text-gray-600 text-left w-full">
+          <div className="mt-2 text-md text-gray-200 text-left w-full">
             <p>{post.message}</p>
           </div>
 
@@ -166,7 +204,7 @@ const Feed = () => {
                     post.starred ? "text-yellow-500" : "text-gray-600"
                   } group-hover:text-yellow-500 transition-colors duration-300`}
                 >
-                  Superstar ({post.star})
+                  Superstar! ({post.star})
                 </span>
               </div>
             </div>
