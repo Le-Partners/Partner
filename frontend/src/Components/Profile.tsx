@@ -4,11 +4,34 @@ import '../styles/Profile.css';
 import igLogo from "../assets/instagram-white.png";
 import xLogo from "../assets/X-white.png";
 import ytLogo from "../assets/youtube-white.png";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
 export default function Profile() {
+    const [user, setUser] = useState({}); // State to store posts data
+
+    // Fetch posts from the backend
+    const fetchUser = async () => {
+        let uid =  localStorage.getItem("uid")
+        const apiEndpoint = `http://localhost:8080/users/${uid}`;
+        try {
+            const res = await axios.get(apiEndpoint)
+            console.log('Fetched user data:', res.data);
+            setUser(res.data); // Update the state with fetched posts
+            console.log("User info:", user)
+        } catch (error) {
+            console.error("Error fetching user:", error);
+            throw error
+        }
+    };
+
+    useEffect(() => {
+        fetchUser();
+      }, []);
+
     return (
         <div className="two-column-layout">
             <div className="column left-column">
@@ -23,7 +46,7 @@ export default function Profile() {
             <div className="column main-column">
                 <div className="profile-body">
                     <h1 className="name">Joe Schmoe</h1>
-                    <h2 className="username">joe_schmoes_username</h2>
+                    <h2 className="username">{user.username}</h2>
                     <hr />
                     <h3>Partner up:</h3>
                     <div className="contact-info">
@@ -32,16 +55,11 @@ export default function Profile() {
                     </div>
                     <hr />
                     <h3>
-                        Workout Experience
+                        Workout Experience: {user.experience}
                     </h3>
                     <p>
-                        Lorem ipsum odor amet, consectetuer adipiscing elit. Leo ante fames pretium,
-                        mollis non tincidunt. Amet erat et ultricies adipiscing nec habitasse.
-                        Class duis ac lacus posuere nunc sagittis. Consequat massa phasellus dictumst
-                        faucibus turpis efficitur per habitasse. Fringilla magna convallis placerat amet ligula.
-                        Dictum ante metus laoreet metus adipiscing pharetra nulla.
-                        Praesent fames pulvinar proin cubilia; est felis. Velit mi consectetur;
-                        platea non sed magnis lectus.
+                        Bio:
+                        {user.bio}
                     </p>
                     <hr />
                     <h3>
