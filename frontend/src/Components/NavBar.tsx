@@ -18,12 +18,11 @@ const NavBar = forwardRef<HTMLUListElement>((props, ref) => {
         <React.Fragment>
             <ul className="navbar" ref={ref}>
                 <div className="navbar-left">
-                    <Button variant="outline" className="navbar-button">
-                        <HamburgerMenuIcon />
-                    </Button>
-                    <Button variant="outline" className="navbar-button">
-                        <img src={logo} alt="Partner" className="object-contain w-auto h-full" />
-                    </Button>
+                    <Link to="/home" className="partner-link">
+                        <Button variant="outline" className="navbar-button">
+                            <img src={logo} alt="Partner" className="object-contain w-auto h-full" />
+                        </Button>
+                    </Link>
                 </div>
                 <div className="navbar-search">
                     <Input type="search" placeholder="Find a Partner" />
@@ -36,19 +35,22 @@ const NavBar = forwardRef<HTMLUListElement>((props, ref) => {
                     <Button variant="outline" className="navbar-button">
                         <BellIcon />
                     </Button>
-                    <Button variant="ghost" className="avatar-button">
-                        <Avatar className="navbar-avatar">
-                            <AvatarImage className="navbar-avatar-image" />
-                            <AvatarFallback className="navbar-avatar-fallback">
-                                PT
-                            </AvatarFallback>
-                        </Avatar>
-                    </Button>
+                    <Link to="/profile" className="avatar-link">
+                        <Button variant="ghost" className="avatar-button">
+                            <Avatar className="navbar-avatar">
+                                <AvatarImage className="navbar-avatar-image" />
+                                <AvatarFallback className="navbar-avatar-fallback">
+                                    PT
+                                </AvatarFallback>
+                            </Avatar>
+                        </Button>
+                    </Link>
                 </div>
             </ul>
         </React.Fragment>
     );
 });
+
 
 // Setting displayName for debugging in React DevTools
 NavBar.displayName = "NavBar";
