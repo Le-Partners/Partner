@@ -4,6 +4,17 @@ const mongoose = require("mongoose")
 const express = require("express")
 const app = express()
 const cors = require("cors")
+const ImageKit = require('imagekit')
+
+var imagekit = new ImageKit({
+
+  publicKey : "public_bGhKDN0oFvrNYpH4gM9gB+FWG9E=",
+
+  privateKey : "private_Pk1yBaz+F+MiEaZHJhVVuJkzEEE=",
+
+  urlEndpoint : "https://ik.imagekit.io/83imtx286"
+
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -229,9 +240,9 @@ app.put('/users/:uid', async function (req, res) {
     const uid = req.params.uid;
 
     const updatedUser = await User.findOneAndUpdate(
-      { uid }, 
-      { $set: req.body }, 
-      { new: true, runValidators: true } 
+      { uid },
+      { $set: req.body },
+      { new: true, runValidators: true }
     );
 
     if (!updatedUser) {
@@ -347,19 +358,19 @@ app.get('/posts/post/:_id', async function (req, res) {
 app.put('/posts/post/:_id', async function (req, res)
 {
   try {
-    const postId = req.params._id; 
+    const postId = req.params._id;
 
     const updatedPost = await Post.findByIdAndUpdate(
-      postId, 
-      { $inc: req.body }, 
-      { new: true, runValidators: true } 
+      postId,
+      { $inc: req.body },
+      { new: true, runValidators: true }
     );
 
     if (!updatedPost) {
       return res.status(404).json({ message: 'Post not found' });
     }
 
-    res.status(200).json(updatedPost); 
+    res.status(200).json(updatedPost);
   } catch (error) {
     console.error("Error updating post:", error);
     res.status(500).json({ message: 'Server error' });
@@ -408,6 +419,11 @@ app.get('/api', (req, res) => {
   console.log("Got it")
   res.json({"dummy": ["testing", "the", "backend"]})
 })
+
+app.get('/auth', function (req, res) {
+  var result = imagekit.getAuthenticationParameters();
+  res.send(result);
+});
 
 app.listen(8080, () => {
     console.log("Server started on port http://localhost:8080")

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function GetUserInfo() {
   const [username, setUsername] = useState("");
@@ -13,19 +14,35 @@ export default function GetUserInfo() {
     e.preventDefault();
 
     // Save the information (e.g., send it to your backend or Firebase)
-    const userInfo = {
-      username,
-      birthday,
-      gender,
-      level,
-      bio,
-    };
-
-    console.log("User Info:", userInfo);
+    postUser()
 
     // Redirect to the home page after saving
     navigate("/home");
   };
+
+  const postUser = async () => {
+    const endPoint = 'http://localhost:8080/users'
+
+    const userData = {
+      username: username,
+      birthday: birthday,
+      gender: gender,
+      bio: bio,
+      uid: localStorage.getItem('uid'),
+      experience: level,
+    }
+
+    try{
+      const res = await axios.post(endPoint, userData, {
+        headers: {'Content-Type': 'application/json',},
+      })
+
+      console.log("User created", res.data)
+    }catch (e){
+      console.error("error:", e.message)
+      throw e
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen ">

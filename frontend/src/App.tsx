@@ -40,12 +40,14 @@ function App() {
           <Route
             path="/Tracker"
             element={
-              <Layout>
-                <div ref={navbarRef}>
-                  {<NavBar />}
-                </div>
-                <Tracker />
-              </Layout>
+              <Protected>
+                <Layout>
+                  <div ref={navbarRef}>
+                    {<NavBar />}
+                  </div>
+                  <Tracker />
+                </Layout>
+              </Protected>
             }
           />
           <Route path="/" element={<Login />} />
