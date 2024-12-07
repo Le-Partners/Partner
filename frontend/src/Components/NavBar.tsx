@@ -19,15 +19,17 @@ const NavBar = forwardRef<HTMLUListElement>((props, ref) => {
             <ul className="navbar" ref={ref}>
                 <div className="navbar-left">
                     <Link to="/home" className="partner-link">
+                        {/* Home button (top left) */}
                         <Button variant="outline" className="navbar-button">
                             <img src={logo} alt="Partner" className="object-contain w-auto h-full" />
                         </Button>
                     </Link>
                 </div>
+                {/* Search bar */}
                 <div className="navbar-search">
                     <Input type="search" placeholder="Find a Partner" />
                 </div>
-
+                {/* Notification and inbox buttons */}
                 <div className="navbar-actions">
                     <Button variant="outline" className="navbar-button">
                         <EnvelopeClosedIcon />
@@ -35,6 +37,7 @@ const NavBar = forwardRef<HTMLUListElement>((props, ref) => {
                     <Button variant="outline" className="navbar-button">
                         <BellIcon />
                     </Button>
+                    {/* Profile button */}
                     <Link to="/profile" className="avatar-link">
                         <Button variant="ghost" className="avatar-button">
                             <Avatar className="navbar-avatar">

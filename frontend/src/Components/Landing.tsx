@@ -5,6 +5,7 @@ import '../App.css'
 import axios from "axios"
 import { Link } from 'react-router-dom'
 
+// Fallback page in case we can't route for some reason
 function Landing() {
 
   const [count, setCount] = useState(0)

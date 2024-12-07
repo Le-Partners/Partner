@@ -33,8 +33,10 @@ export default function Profile() {
       }, []);
 
     return (
+        // Split the contents into two columns, one 33% of the screen
         <div className="two-column-layout">
             <div className="column left-column">
+                {/* Image of the user's profile picture */}
                 <Avatar className="profile-avatar">
                     <AvatarImage className="profile-avatar-image" />
                     <AvatarFallback className="fallback">
@@ -42,13 +44,15 @@ export default function Profile() {
                     </AvatarFallback>
                 </Avatar>
             </div>
-
+            {/* Right column */}
             <div className="column main-column">
                 <div className="profile-body">
+                    {/* Name and username */}
                     <h1 className="name">Joe Schmoe</h1>
                     <h2 className="username">{user.username}</h2>
                     <hr />
                     <h3>Partner up:</h3>
+                    {/* Contact information */}
                     <div className="contact-info">
                         <span>joeschmoesamplemail@example.com</span>
                         <span className="phone">+1-721-555-4020</span>
@@ -73,6 +77,7 @@ export default function Profile() {
                     <h3>
                         Links
                     </h3>
+                    {/* Links to external social media sites */}
                     <div className="button-container">
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="button-link">
                             <Button variant="ghost" className="button">
