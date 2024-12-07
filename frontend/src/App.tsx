@@ -21,6 +21,7 @@ import { relative } from 'path';
 function App() {
   const navbarRef = useRef<HTMLDivElement>(null);
   return (
+    // Basically our URL routing setup
     <React.Fragment>
       <div>
         <Routes>

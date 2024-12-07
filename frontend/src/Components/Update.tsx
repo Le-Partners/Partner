@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 import axios from 'axios';
 
-
+// Neccessary stuff for ImageKit
 const urlEndpoint = 'https://ik.imagekit.io/83imtx286'
 const publicKey = 'public_bGhKDN0oFvrNYpH4gM9gB+FWG9E=';
 const authenticator =  async () => {
@@ -37,6 +37,7 @@ function Update() {
   const [mediaType, setMediaType] = useState(''); // trracks media type
   const navigate = useNavigate();
 
+  // Handles form  submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -48,9 +49,10 @@ function Update() {
     navigate('/home');
   };
 
+  // Function that does an api request to backend to submit user post
   const submitPost = async () => {
     const postEndPoint = "http://localhost:8080/posts"
-
+    // Builds the posts schema
     const postData = {
       username: localStorage.getItem("user"),
       message: caption,
@@ -102,7 +104,7 @@ function Update() {
 
         {/* Media upload */}
         <div>
-          {/* <label className="block text-lg font-medium text-white-700 mb-2">Upload an Image or Video</label> */}
+          {/* ImageKit component that takes the uploaded image and hosts it and returns url of hosted image */}
           <IKContext urlEndpoint={urlEndpoint} publicKey={publicKey} authenticator={authenticator}>
             <p>Upload an image</p>
             <IKUpload
