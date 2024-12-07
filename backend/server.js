@@ -6,6 +6,7 @@ const app = express()
 const cors = require("cors")
 const ImageKit = require('imagekit')
 
+// Apit information for imagehosting
 var imagekit = new ImageKit({
 
   publicKey : "public_bGhKDN0oFvrNYpH4gM9gB+FWG9E=",
@@ -20,10 +21,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
+// Allows us to make requests to the backend from anywhere
 app.use(cors({origin: '*'}))
 
 const uri = process.env.mongo
 
+// Database connection
 mongoose.connect(uri)
 
 const dbMongo = mongoose.connection
@@ -34,7 +37,7 @@ dbMongo.once('open', function() {
   console.log('Connected to MongoDB');
 });
 
-
+// Schema for user info (schema basically being an outline)
 const userSchema = new mongoose.Schema ({
   username:{
     type: String,
@@ -68,7 +71,7 @@ const userSchema = new mongoose.Schema ({
 });
 const User = mongoose.model('User', userSchema);
 
-
+// Schema for user posts
 const postSchema = new mongoose.Schema({
     username:{
         type:String,
@@ -109,7 +112,7 @@ const postSchema = new mongoose.Schema({
 });
 const Post = mongoose.model('Post', postSchema);
 
-
+// Schema for users partners
 const partnerSchema = new mongoose.Schema({
     username: {
       type:String,
@@ -127,7 +130,7 @@ const partnerSchema = new mongoose.Schema({
 });
 const Partner = mongoose.model('Partner', partnerSchema);
 
-
+// Schema for user messages
 const messageSchema = new mongoose.Schema({
     sender_username:{
         type: String,
@@ -149,7 +152,7 @@ const messageSchema = new mongoose.Schema({
 });
 const Message = mongoose.model('Message', messageSchema);
 
-
+// Schema for user notifications
 const notificationSchema = new mongoose.Schema({
     username:{
         type: String,
@@ -171,8 +174,9 @@ const notificationSchema = new mongoose.Schema({
 });
 const Notification = mongoose.model('Notification', notificationSchema);
 
+// Set of API endpoints for User Schema
 
-
+// Enpoint that creates a user in the db
 app.post('/users', async function (req, res) {
   const usr = new User({
     username: req.body.username,
@@ -192,6 +196,8 @@ app.post('/users', async function (req, res) {
   }
 })
 
+
+// Grabs all the users in the db
 app.get('/users', async function (req, res) {
   try {
     console.log("Getting")
@@ -202,6 +208,8 @@ app.get('/users', async function (req, res) {
   }
 })
 
+
+// Grabs a user by their uid (would be used for the user viewing their profile)
 app.get('/users/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
@@ -218,6 +226,7 @@ app.get('/users/:uid', async function (req, res) {
   }
 });
 
+// Grabs a user by their username (would be used when we make other user profiles viewable)
 app.get('/users/username/:username', async function (req, res) {
   try {
     const username = req.params.username;
@@ -234,7 +243,7 @@ app.get('/users/username/:username', async function (req, res) {
   }
 });
 
-
+// This endpoint is for a user to modify their information
 app.put('/users/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
@@ -256,8 +265,7 @@ app.put('/users/:uid', async function (req, res) {
   }
 });
 
-
-
+// This endpoint deletes a user from the db, in instance where they delete their account
 app.delete('/users/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
@@ -273,7 +281,9 @@ app.delete('/users/:uid', async function (req, res) {
   }
 });
 
+// Set of endpoints for user posts
 
+// Endpoint posts a users post to the db
 app.post('/posts', async function (req, res){
     const post = new Post({
         username: req.body.username,
@@ -293,6 +303,7 @@ app.post('/posts', async function (req, res){
     }
 })
 
+// Lists all posts of all users
 app.get('/posts', async function (req, res) {
     try{
     const posts = await Post.find()
@@ -303,6 +314,7 @@ app.get('/posts', async function (req, res) {
     }
 })
 
+// GRabs the posts of a certain user using their uid
 app.get('/posts/:uid', async function (req, res) {
   try {
     const uid = req.params.uid;
@@ -319,7 +331,7 @@ app.get('/posts/:uid', async function (req, res) {
   }
 });
 
-
+// Grabs the posts of a certain user using their username
 app.get('/posts/username/:username', async function (req, res) {
   try {
     const username = req.params.username;
@@ -336,7 +348,7 @@ app.get('/posts/username/:username', async function (req, res) {
   }
 });
 
-
+// Grabs a post by the posts id
 app.get('/posts/post/:_id', async function (req, res) {
   try {
     const _id = req.params._id;
@@ -354,7 +366,7 @@ app.get('/posts/post/:_id', async function (req, res) {
 });
 
 
-
+// Allows the modification of a post (For when we implement post editing)
 app.put('/posts/post/:_id', async function (req, res)
 {
   try {
@@ -378,7 +390,7 @@ app.put('/posts/post/:_id', async function (req, res)
 })
 
 
-
+// Creates a users list of partners (For when the partner system gets implemented)
 app.post('/partners', async function (req, res) {
   const partner = new Partner({
     username : req.body.username,
@@ -392,17 +404,7 @@ app.post('/partners', async function (req, res) {
   }
 })
 
-app.post('/partners/:uid', async function (req, res) {
-  try {
-    const uid = req.params.uid
-
-    const partners = await Partner.findOne({uid})
-    res.status(200).json(partners);
-  }catch(error){
-    console.log(error)
-  }
-})
-
+// Updates the list of partners
 app.post('/partners/username/:username', async function (req, res) {
   try {
     const username = req.params.username
@@ -414,17 +416,13 @@ app.post('/partners/username/:username', async function (req, res) {
   }
 })
 
-
-app.get('/api', (req, res) => {
-  console.log("Got it")
-  res.json({"dummy": ["testing", "the", "backend"]})
-})
-
+// This endpoint gets authorization from ImageKit
 app.get('/auth', function (req, res) {
   var result = imagekit.getAuthenticationParameters();
   res.send(result);
 });
 
+// Starts the backend server
 app.listen(8080, () => {
     console.log("Server started on port http://localhost:8080")
 })
